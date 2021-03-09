@@ -24,7 +24,7 @@ class ActiveForm
         Form::TYPE_DROPDOWNLIST => 'dropdownList'
     ];
 
-    public function configT($model)
+    public static function configT($model)
     {
         $items = Json::decode($model->config,true);
         return (is_array($items)) ? array_map(function($item) use($model) {
@@ -32,7 +32,7 @@ class ActiveForm
             }, $items) : $model->config;
     }
 
-    public function field($form, $model, $index)
+    public static function field($form, $model, $index)
     {
         $method = self::getMethodName($model->type);
         if(in_array($model->type, [Form::TYPE_INPUTFILE, Form::TYPE_TEXTAREA, Form::TYPE_CHECKBOX, Form::TYPE_CHECKBOXLIST, Form::TYPE_RADIO, Form::TYPE_RADIOLIST, Form::TYPE_LISTBOX, Form::TYPE_DROPDOWNLIST]))
@@ -45,12 +45,12 @@ class ActiveForm
             return $form->field($model, "[$index]value")->$method($model->config)->label(false);
     }
 
-    private function getMethodName($type)
+    private static function getMethodName($type)
     {
         return self::$typeMethodName[$type];
     }
 
-    private function getConfigData($model)
+    private static function getConfigData($model)
     {
         $items = Json::decode($model->config,true);
 
