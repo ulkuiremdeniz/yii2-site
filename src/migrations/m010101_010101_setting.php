@@ -51,6 +51,15 @@ class m010101_010101_setting extends Migration
 
         $this->insert('setting', [
             'category' => 'site',
+            'name' => 'page::logo',
+            'label' => 'Logo Url',
+            'value' => 'Portal',
+            'type' => Form::TYPE_INPUTTEXT,
+            'config' => ''
+        ]);
+
+        $this->insert('setting', [
+            'category' => 'site',
             'name' => 'page::signup',
             'label' => 'Signup Page',
             'value' => '1',
