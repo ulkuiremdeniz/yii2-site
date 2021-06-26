@@ -38,7 +38,7 @@ class ActiveForm
         if(in_array($model->type, [Form::TYPE_INPUTFILE, Form::TYPE_TEXTAREA, Form::TYPE_CHECKBOX, Form::TYPE_CHECKBOXLIST, Form::TYPE_RADIO, Form::TYPE_RADIOLIST, Form::TYPE_LISTBOX, Form::TYPE_DROPDOWNLIST]))
             return $form->field($model, "[$index]value")->$method(self::configT(self::getConfigData($model)))->label(false);
 
-        if(in_array($model->type, [Form::TYPE_INPUTTEXT, Form::TYPE_INPUTPASSWORD, Form::TYPE_INPUTHIDDEN]))
+        if(in_array($model->type, [Form::TYPE_INPUTTEXT, Form::TYPE_INPUTPASSWORD]))
             return $form->field($model, "[$index]value")->$method()->label(false);
         
         if(in_array($model->type, [Form::TYPE_INPUT]))
