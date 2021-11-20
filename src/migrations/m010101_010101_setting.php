@@ -60,6 +60,33 @@ class m010101_010101_setting extends Migration
 
         $this->insert('setting', [
             'category' => 'site',
+            'name' => 'app::facebook',
+            'label' => 'Facebook Link',
+            'value' => '',
+            'type' => Form::TYPE_INPUTTEXT,
+            'config' => ''
+        ]);
+
+        $this->insert('setting', [
+            'category' => 'site',
+            'name' => 'app::twitter',
+            'label' => 'Twitter Link',
+            'value' => '',
+            'type' => Form::TYPE_INPUTTEXT,
+            'config' => ''
+        ]);
+
+        $this->insert('setting', [
+            'category' => 'site',
+            'name' => 'app::instagram',
+            'label' => 'Instagram Link',
+            'value' => '',
+            'type' => Form::TYPE_INPUTTEXT,
+            'config' => ''
+        ]); 
+
+        $this->insert('setting', [
+            'category' => 'site',
             'name' => 'page::signup',
             'label' => 'Signup Page',
             'value' => '1',
