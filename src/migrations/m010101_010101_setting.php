@@ -83,7 +83,7 @@ class m010101_010101_setting extends Migration
             'value' => '',
             'type' => Form::TYPE_INPUTTEXT,
             'config' => ''
-        ]); 
+        ]);
 
         $this->insert('setting', [
             'category' => 'site',
