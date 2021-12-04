@@ -31,7 +31,7 @@ class AuthController extends RestController
         if($model->load(Yii::$app->getRequest()->getBodyParams(),'')) {
             if ($model->login()) {
                 $user = User::findIdentity(Yii::$app->user->identity->id);
-                return ['access-token' => $user->access_token];
+                return $this->getUserData($user);
             } else
                 return $this->modelError($model);
         }else{
@@ -48,7 +48,7 @@ class AuthController extends RestController
 
         if($model->load(Yii::$app->getRequest()->getBodyParams(),'')) {
             if($user = $model->signup()){
-                return ['access-token' => $user->access_token];
+                return $this->getUserData($user);
             }
             else
                 return $this->modelError($model);
@@ -56,4 +56,16 @@ class AuthController extends RestController
             return $this->error(['SignupForm' => Module::t("Username (username), Password (password) and Email (email) required.")]);
         }
 	}
+
+    protected function getUserData($user) {
+        return [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'created_at' => $user->created_at,
+            'access_token' => $user->access_token
+        ];
+    }
 }
