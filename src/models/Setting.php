@@ -3,6 +3,7 @@
 namespace portalium\site\models;
 
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use portalium\helpers\ObjectHelper;
 use portalium\site\Module;
 use portalium\site\models\Form;
@@ -35,5 +36,20 @@ class Setting extends ActiveRecord
             'type' => Module::t('Type'),
             'config' => Module::t('Config')
         ];
+    }
+
+    public static function allList()
+    {
+        return ArrayHelper::map(Setting::find()->asArray()->all(),'name','value');
+    }
+
+    public static function getLanguages()
+    {
+        return json_decode(self::findOne(['name' => 'app::language'])->config,true);
+    }
+
+    public static function getValue($name)
+    {
+        return self::findOne(['name' => $name])->value;
     }
 }

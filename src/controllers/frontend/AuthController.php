@@ -82,12 +82,14 @@ class AuthController extends WebController
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', Module::t('Check your email for further instructions.'));
-
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
             }
+        }else{
+            Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
         }
+
 
         return $this->render('requestPasswordResetToken', [
             'model' => $model,

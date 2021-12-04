@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group">
                     <?= Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
+            <a class="nav-link text-uppercase font-weight-medium"
+            href = '/site/auth/request-password-reset'><?= Module::t('Reset Password') ?></a>
             <?php ActiveForm::end(); ?>
         </div>
     </div>
