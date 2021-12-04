@@ -10,6 +10,9 @@ use yii\filters\auth\QueryParamAuth;
 
 class Module extends \portalium\base\Module
 {
+    const EVENT_ON_LOGIN = 'siteAfterLogin';
+    const EVENT_ON_SIGNUP = 'siteAfterSignup';
+
     public $apiRules = [
         [
             'class' => 'yii\rest\UrlRule',

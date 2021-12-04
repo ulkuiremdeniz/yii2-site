@@ -2,6 +2,7 @@
 
 namespace portalium\site\models;
 
+use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
@@ -46,14 +47,19 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+
+        if ($user->save()) {
+            \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
+            return $user;
+        }
+
+        return null;
     }
 }

@@ -3,13 +3,14 @@
 namespace portalium\site\models;
 
 use Yii;
+use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
 
 class LoginForm extends Model
 {
-    public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
 
@@ -18,17 +19,16 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
+            [['email', 'password'], 'required'],
             ['rememberMe', 'boolean'],
-            ['password', 'validatePassword']
-        
+            ['password', 'validatePassword'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'username' => Module::t('Username'),
+            'email' => Module::t('Email'),
             'password' => Module::t('Password'),
             'rememberMe' => Module::t('Remember Me'),
         ];
@@ -39,7 +39,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, Module::t('Incorrect username or password.'));
+                $this->addError($attribute, Module::t('Incorrect email or password.'));
             }
         }
     }
@@ -47,7 +47,9 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $user = $this->getUser();
+            \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
+            return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
@@ -56,7 +58,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findOne(['email' => $this->email]);
         }
 
         return $this->_user;
