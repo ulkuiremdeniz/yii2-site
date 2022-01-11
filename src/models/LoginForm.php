@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
+use yii\validators\EmailValidator;
 
 class LoginForm extends Model
 {
@@ -28,7 +29,7 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Module::t('Username'),
+            'username' => Module::t('Email / Username'),
             'password' => Module::t('Password'),
             'rememberMe' => Module::t('Remember Me'),
         ];
@@ -56,7 +57,10 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findOne(
+                (new EmailValidator())->validate($this->username) ?
+                    ['email' => $this->username] : ['username' => $this->username]
+            );
         }
 
         return $this->_user;
