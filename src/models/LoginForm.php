@@ -3,6 +3,7 @@
 namespace portalium\site\models;
 
 use Yii;
+use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
@@ -21,8 +22,7 @@ class LoginForm extends Model
         return [
             [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
-            ['password', 'validatePassword']
-        
+            ['password', 'validatePassword'],
         ];
     }
 
@@ -40,7 +40,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, Module::t('Incorrect username or password.'));
+                $this->addError($attribute, Module::t('Incorrect email or password.'));
             }
         }
     }
@@ -48,7 +48,9 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $user = $this->getUser();
+            \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
+            return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
@@ -61,6 +63,7 @@ class LoginForm extends Model
                 (new EmailValidator())->validate($this->username) ?
                     ['email' => $this->username] : ['username' => $this->username]
             );
+
         }
 
         return $this->_user;
