@@ -80,4 +80,5 @@ return [
     'Username (username), Password (password) and Email (email) required.' => 'Kullanıcı Adı (username), Parola (password) ve Eposta (email) gereklidir.',
     'Signup denied with API' => 'API ile kayıt reddedildi.',
     'Login denied with API' => 'API ile giriş reddedildi.',
+    'You are not allowed to perform this action.' => 'Bu işlemi gerçekleştirmek için izniniz yok.',
 ];
