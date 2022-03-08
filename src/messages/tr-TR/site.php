@@ -73,6 +73,7 @@ return [
     'API Login' => 'API Giriş',
     'Allow' => 'İzin Ver',
     'Deny' => 'Reddet',
+    'Notification Group' => 'Bildirim Grubu',
     /* Error */
     'The above error occurred while the Web server was processing your request.' => 'Web sunucusu isteğinizi işlerken yukarıdaki hata oluştu.',
     'Please contact us if you think this is a server error.' => 'Bunun bir sunucu hatası olduğunu düşünüyorsanız lütfen bizimle iletişime geçin.',
@@ -80,5 +81,4 @@ return [
     'Username (username), Password (password) and Email (email) required.' => 'Kullanıcı Adı (username), Parola (password) ve Eposta (email) gereklidir.',
     'Signup denied with API' => 'API ile kayıt reddedildi.',
     'Login denied with API' => 'API ile giriş reddedildi.',
-    'You are not allowed to perform this action.' => 'Bu işlemi gerçekleştirmek için izniniz yok.',
 ];

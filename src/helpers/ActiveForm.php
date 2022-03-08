@@ -32,17 +32,17 @@ class ActiveForm
             }, $items) : $model->config;
     }
 
-    public static function field($form, $model, $index)
+    public static function field($form, $model, $index, $label)
     {
         $method = self::getMethodName($model->type);
         if(in_array($model->type, [Form::TYPE_INPUTFILE, Form::TYPE_TEXTAREA, Form::TYPE_CHECKBOX, Form::TYPE_CHECKBOXLIST, Form::TYPE_RADIO, Form::TYPE_RADIOLIST, Form::TYPE_LISTBOX, Form::TYPE_DROPDOWNLIST]))
-            return $form->field($model, "[$index]value")->$method(self::configT(self::getConfigData($model)))->label(false);
+            return $form->field($model, "[$index]value")->$method(self::configT(self::getConfigData($model)))->label($label);
 
         if(in_array($model->type, [Form::TYPE_INPUTTEXT, Form::TYPE_INPUTPASSWORD]))
-            return $form->field($model, "[$index]value")->$method()->label(false);
+            return $form->field($model, "[$index]value")->$method()->label($label);
         
         if(in_array($model->type, [Form::TYPE_INPUT]))
-            return $form->field($model, "[$index]value")->$method($model->config)->label(false);
+            return $form->field($model, "[$index]value")->$method($model->config)->label($label);
     }
 
     private static function getMethodName($type)
