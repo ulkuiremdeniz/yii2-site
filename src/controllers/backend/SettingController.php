@@ -3,7 +3,6 @@
 namespace portalium\site\controllers\backend;
 
 use Yii;
-use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -35,10 +34,6 @@ class SettingController extends WebController
 
     public function actionIndex()
     {
-        if(!Yii::$app->user->can('siteSettingManage'))
-        {
-            throw new ForbiddenHttpException(Module::t('You are not allowed to perform this action.'));
-        }
         $settings = Setting::find()
             ->orderBy(['category' => SORT_ASC,'id' => SORT_ASC,'name'=>SORT_ASC])
             ->indexBy('id')

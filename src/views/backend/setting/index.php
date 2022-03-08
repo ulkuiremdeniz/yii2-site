@@ -25,12 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ]) ?>
 <?php foreach ($settings as $index => $setting) : ?>
     <?php if(Form::TYPE_INPUTHIDDEN != $setting->type): ?>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="title"><?= Module::settingT($setting->category, $setting->label) ?>:</label>
-        <div class="col-sm-10">
-            <?= SettingForm::field($form, $setting, $index); ?>
-        </div>
-    </div>
+            <?= SettingForm::field($form, $setting, $index, Module::settingT($setting->category, $setting->label)) ?>
     <?php endif; ?>
 <?php endforeach; ?>
 <?php Panel::end() ?>
