@@ -3,7 +3,7 @@
 use yii\db\Migration;
 use portalium\site\models\Form;
 
-class m010101_010101_setting extends Migration
+class m010101_010101_site_setting extends Migration
 {
     public function up()
     {
@@ -12,7 +12,7 @@ class m010101_010101_setting extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('setting', [
+        $this->createTable('site_setting', [
             'id' => $this->primaryKey(),
             'category' => $this->string(64)->notNull(),
             'name' => $this->string(64)->notNull(),
@@ -22,7 +22,7 @@ class m010101_010101_setting extends Migration
             'config' => $this->text(),
         ], $tableOptions);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'app::title',
             'label' => 'Title',
@@ -31,7 +31,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'app::language',
             'label' => 'Language',
@@ -40,7 +40,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 'en-US' => 'English','tr-TR' => 'Turkish'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::home',
             'label' => 'Home Page',
@@ -49,7 +49,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 0 => 'Please Select'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::logo',
             'label' => 'Logo Url',
@@ -58,7 +58,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'app::facebook',
             'label' => 'Facebook Link',
@@ -67,7 +67,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'app::twitter',
             'label' => 'Twitter Link',
@@ -76,7 +76,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'app::instagram',
             'label' => 'Instagram Link',
@@ -85,7 +85,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::signup',
             'label' => 'Signup Page',
@@ -94,7 +94,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::about',
             'label' => 'About Page',
@@ -103,7 +103,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::login',
             'label' => 'Login Page',
@@ -112,7 +112,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::contact',
             'label' => 'Contact Page',
@@ -121,7 +121,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'api::signup',
             'label' => 'API Signup',
@@ -130,7 +130,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Allow', 0 => 'Deny'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'api::login',
             'label' => 'API Login',
@@ -139,7 +139,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode([ 1 => 'Allow', 0 => 'Deny'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'email::address',
             'label' => 'Email Address',
@@ -148,7 +148,7 @@ class m010101_010101_setting extends Migration
             'config' => 'email'
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'email::displayname',
             'label' => 'Email Display Name',
@@ -157,7 +157,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'smtp::server',
             'label' => 'SMTP Server',
@@ -166,7 +166,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'smtp::port',
             'label' => 'SMTP Port',
@@ -175,7 +175,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'smtp::username',
             'label' => 'SMTP Username',
@@ -184,7 +184,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting',[
+        $this->insert('site_setting',[
             'category' => 'site',
             'name' => 'smtp::password',
             'label' => 'SMTP Password',
@@ -193,7 +193,7 @@ class m010101_010101_setting extends Migration
             'config' => ''
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'smtp::encryption',
             'label' => 'SMTP Encryption',
@@ -202,7 +202,7 @@ class m010101_010101_setting extends Migration
             'config' => json_encode(['ssl' => 'SSL','tls' => 'TLS'])
         ]);
 
-        $this->insert('setting', [
+        $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'admin::user',
             'label' => 'Admin User',
@@ -223,6 +223,6 @@ class m010101_010101_setting extends Migration
 
     public function down()
     {
-        $this->dropTable('setting');
+        $this->dropTable('site_setting');
     }
 }

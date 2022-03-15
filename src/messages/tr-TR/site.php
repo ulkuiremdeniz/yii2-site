@@ -73,6 +73,7 @@ return [
     'API Login' => 'API Giriş',
     'Allow' => 'İzin Ver',
     'Deny' => 'Reddet',
+    'Notification Group' => 'Bildirim Grubu',
     /* Error */
     'The above error occurred while the Web server was processing your request.' => 'Web sunucusu isteğinizi işlerken yukarıdaki hata oluştu.',
     'Please contact us if you think this is a server error.' => 'Bunun bir sunucu hatası olduğunu düşünüyorsanız lütfen bizimle iletişime geçin.',

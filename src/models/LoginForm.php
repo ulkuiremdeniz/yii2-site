@@ -7,10 +7,11 @@ use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
+use yii\validators\EmailValidator;
 
 class LoginForm extends Model
 {
-    public $email;
+    public $username;
     public $password;
     public $rememberMe = true;
 
@@ -19,7 +20,7 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
+            [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
         ];
@@ -28,7 +29,7 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => Module::t('Email'),
+            'username' => Module::t('Email / Username'),
             'password' => Module::t('Password'),
             'rememberMe' => Module::t('Remember Me'),
         ];
@@ -58,7 +59,11 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findOne(['email' => $this->email]);
+            $this->_user = User::findOne(
+                (new EmailValidator())->validate($this->username) ?
+                    ['email' => $this->username] : ['username' => $this->username]
+            );
+
         }
 
         return $this->_user;

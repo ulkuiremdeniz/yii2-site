@@ -27,7 +27,6 @@ class AuthController extends RestController
             return $this->error(['APILogin' => Module::t("Login denied with API")]);
 
         $model = new LoginForm();
-
         if($model->load(Yii::$app->getRequest()->getBodyParams(),'')) {
             if ($model->login()) {
                 $user = User::findIdentity(Yii::$app->user->identity->id);
