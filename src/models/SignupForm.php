@@ -13,6 +13,8 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $verifyCode;
+    public $first_name;
+    public $last_name;
 
     public function rules()
     {
@@ -28,6 +30,9 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\portalium\user\models\User', 'message' => Module::t('This email address has already been taken.')],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['first_name', 'safe'],
+            ['last_name', 'safe'],
+
         ];
     }
 
@@ -51,6 +56,8 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
         $user->setPassword($this->password);
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->generateAuthKey();
