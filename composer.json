@@ -15,7 +15,7 @@
 		"issues" : "https://github.com/portalium/portalium-site/issues"
 	},
 	"require": {
-		"portalium/portalium-menu": "dev-develop"
+		"portalium/portalium-menu": "*"
 	},
 	"autoload" : {
 		"psr-4" : {
