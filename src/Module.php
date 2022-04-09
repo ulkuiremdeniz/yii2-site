@@ -2,12 +2,9 @@
 
 namespace portalium\site;
 
+use portalium\site\components\TaskAutomation;
 use Yii;
-use yii\filters\auth\CompositeAuth;
-use yii\filters\auth\HttpBasicAuth;
-use yii\filters\auth\HttpBearerAuth;
-use yii\filters\auth\QueryParamAuth;
-use portalium\site\widgets\LoginButton;
+use portalium\user\Module as UserModule;
 
 class Module extends \portalium\base\Module
 {
@@ -24,19 +21,6 @@ class Module extends \portalium\base\Module
     ];
 
     public static $tablePrefix = 'site_';
-
-    public function getMenuItems(){
-        $menuItems = [
-            [
-                [
-                    'type' => 'widget',
-                    'label' => LoginButton::widget(),
-                    'name' => 'Login',
-                ]
-            ],
-        ];
-        return $menuItems;
-    }
 
     public static function moduleInit()
     {
@@ -67,4 +51,12 @@ class Module extends \portalium\base\Module
 
         return parent::coreT($category, $message, $params);
     }
+
+    //register event
+    public function registerEvents()
+    {
+        Yii::$app->on(UserModule::EVENT_USER_CREATE, [new TaskAutomation(), 'onUserCreate']);
+        Yii::$app->on(self::EVENT_ON_SIGNUP, [new TaskAutomation(), 'onUserCreate']);
+    }
+
 }
