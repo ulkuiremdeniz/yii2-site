@@ -5,6 +5,7 @@ namespace portalium\site;
 use portalium\site\components\TaskAutomation;
 use Yii;
 use portalium\user\Module as UserModule;
+use portalium\site\widgets\LoginButton;
 
 class Module extends \portalium\base\Module
 {
@@ -21,6 +22,19 @@ class Module extends \portalium\base\Module
     ];
 
     public static $tablePrefix = 'site_';
+
+    public function getMenuItems(){
+        $menuItems = [
+            [
+                [
+                    'type' => 'widget',
+                    'label' => LoginButton::widget(),
+                    'name' => 'Login',
+                ]
+            ],
+        ];
+        return $menuItems;
+    }
 
     public static function moduleInit()
     {
