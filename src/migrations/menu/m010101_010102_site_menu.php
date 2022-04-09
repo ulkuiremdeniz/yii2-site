@@ -7,11 +7,7 @@ use portalium\site\models\Form;
 
 class m010101_010102_site_menu extends Migration
 {
-    public function init()
-    {
-        $this->db = 'db';
-        parent::init();
-    }
+
     public function up()
     {
 
