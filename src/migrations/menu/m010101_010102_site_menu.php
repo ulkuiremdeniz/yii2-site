@@ -23,11 +23,13 @@ class m010101_010102_site_menu extends Migration
             'id_parent' => 0,
             'name_auth' => 'admin',
             'label' => 'Home',
-            'slug' => 'site/home',
+            'slug' => 'site-home',
             'type' => MenuItem::TYPE['route'],
             'data' => json_encode([
-                'routeType' => 'route',
-                'route' => '/site/site/index'
+                'type' => MenuItem::TYPE['route'],
+                'data' => [
+                    'route' => '/site/default/index'
+                ]
             ]),
             'sort' => 1
         ]);
