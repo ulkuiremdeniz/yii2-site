@@ -5,7 +5,7 @@ namespace portalium\site;
 use portalium\site\components\TaskAutomation;
 use Yii;
 use portalium\user\Module as UserModule;
-use portalium\site\widgets\LoginButton;
+
 
 class Module extends \portalium\base\Module
 {
@@ -28,7 +28,7 @@ class Module extends \portalium\base\Module
             [
                 [
                     'type' => 'widget',
-                    'label' => LoginButton::widget(),
+                    'label' => 'portalium\site\widgets\LoginButton',
                     'name' => 'Login',
                 ]
             ],
