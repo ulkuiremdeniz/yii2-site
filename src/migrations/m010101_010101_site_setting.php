@@ -202,23 +202,6 @@ class m010101_010101_site_setting extends Migration
             'config' => json_encode(['ssl' => 'SSL','tls' => 'TLS'])
         ]);
 
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'admin::user',
-            'label' => 'Admin User',
-            'value' => '0',
-            'type' => Form::TYPE_DROPDOWNLIST,
-            'config' => json_encode([
-                'model' => [
-                    'class' => 'portalium\user\models\User', 
-                    'map' => [
-                        'key' => 'id' ,
-                        'value' => 'username'
-                    ]
-                ]
-            ])
-        ]);
-
     }
 
     public function down()
