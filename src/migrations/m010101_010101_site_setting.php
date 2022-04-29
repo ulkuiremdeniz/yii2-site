@@ -48,6 +48,22 @@ class m010101_010101_site_setting extends Migration
             'type' => Form::TYPE_DROPDOWNLIST,
             'config' => json_encode([ 0 => 'Please Select'])
         ]);
+        $this->insert('site_setting', [
+            'category' => 'site',
+            'name' => 'page::home',
+            'label' => 'Home Page',
+            'value' => '0',
+            'type' => Form::TYPE_DROPDOWNLIST,
+            'config' => json_encode([
+                'model' => [
+                    'class' => 'portalium\content\models\Content', 
+                    'map' => [
+                        'key' => 'id_content' ,
+                        'value' => 'name'
+                    ]
+                ]
+            ])
+        ]);
 
         $this->insert('site_setting', [
             'category' => 'site',
@@ -60,44 +76,8 @@ class m010101_010101_site_setting extends Migration
 
         $this->insert('site_setting', [
             'category' => 'site',
-            'name' => 'app::facebook',
-            'label' => 'Facebook Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'app::twitter',
-            'label' => 'Twitter Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'app::instagram',
-            'label' => 'Instagram Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
             'name' => 'page::signup',
-            'label' => 'Signup Page',
-            'value' => '1',
-            'type' => Form::TYPE_RADIOLIST,
-            'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'page::about',
-            'label' => 'About Page',
+            'label' => 'Signup Form',
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
@@ -106,7 +86,7 @@ class m010101_010101_site_setting extends Migration
         $this->insert('site_setting', [
             'category' => 'site',
             'name' => 'page::login',
-            'label' => 'Login Page',
+            'label' => 'Login Form',
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])

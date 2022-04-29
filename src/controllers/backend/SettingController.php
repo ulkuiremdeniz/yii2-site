@@ -34,6 +34,9 @@ class SettingController extends WebController
 
     public function actionIndex()
     {
+        if(!Yii::$app->user->can('siteBackendSettingIndex')){
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $settings = Setting::find()
             ->orderBy(['category' => SORT_ASC,'id' => SORT_ASC,'name'=>SORT_ASC])
             ->indexBy('id')
@@ -46,6 +49,9 @@ class SettingController extends WebController
 
     public function actionUpdate()
     {
+        if(!Yii::$app->user->can('siteBackendSettingUpdate')){
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $settings = Setting::find()->indexBy('id')->all();
 
         if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
