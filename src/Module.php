@@ -30,7 +30,12 @@ class Module extends \portalium\base\Module
                     'type' => 'widget',
                     'label' => 'portalium\site\widgets\LoginButton',
                     'name' => 'Login',
-                ]
+                ],
+                [
+                    'type' => 'widget',
+                    'label' => 'portalium\site\widgets\Language',
+                    'name' => 'Language',
+                ],
             ],
         ];
         return $menuItems;

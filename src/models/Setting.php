@@ -18,7 +18,7 @@ class Setting extends ActiveRecord
     public function rules()
     {
         return [
-            [['category','name','label','type'], 'required'],
+            [['module','name','label','type'], 'required'],
             [['name', 'value'], 'string', 'max' => 200],
             ['type', 'default', 'value' => Form::TYPE_INPUT],
             ['type', 'in', 'range' => Form::getTypes()],
@@ -29,7 +29,7 @@ class Setting extends ActiveRecord
     {
         return [
             'id' => Module::t('ID'),
-            'category' => Module::t('Category'),
+            'module' => Module::t('Module'),
             'name' => Module::t('Name'),
             'label' => Module::t('Label'),
             'value' => Module::t('Value'),

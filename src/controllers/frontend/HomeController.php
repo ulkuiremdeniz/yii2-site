@@ -3,18 +3,38 @@
 namespace portalium\site\controllers\frontend;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use portalium\site\Module;
-use portalium\site\models\ContactForm;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 use portalium\site\models\Setting;
+
+use portalium\site\models\ContactForm;
 use portalium\web\Controller as WebController;
 
 class HomeController extends WebController
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $settings = ArrayHelper::map(Setting::find()->asArray()->all(),'name','value');
+        // has module content module
+        $hasContentModule = Yii::$app->hasModule('content');
+        $content = "";
+
+        if ($hasContentModule) {
+            $content = \portalium\content\models\Content::find()->where(['id_content' => $settings['page::home']])->one();
+            $content = $content->body;
+        }else{
+            $content = Module::t('<div class="site-index">
+            <div class="jumbotron">
+                <h1>'.Module::t('Portalium Home - Frontend') .'</h1>
+            </div>
+        </div>');
+        }
+        return $this->render('index',
+        [
+            'content' => $content,
+        ]);
     }
 
     public function actionAbout()
@@ -26,7 +46,7 @@ class HomeController extends WebController
 
     public function actionContact()
     {
-        if(Setting::findOne(['name' => 'page::contact'])->value)
+        if(Setting::findOne(['name' => 'form::contact'])->value)
         {
             $model = new ContactForm();
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {

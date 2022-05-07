@@ -2,10 +2,12 @@
 
 namespace portalium\site\helpers;
 
-use yii\helpers\ArrayHelper;
+use ReflectionClass;
 use yii\helpers\Json;
 use portalium\site\Module;
+use yii\helpers\ArrayHelper;
 use portalium\site\models\Form;
+use portalium\content\models\Content;
 
 class ActiveForm
 {
@@ -21,14 +23,15 @@ class ActiveForm
         Form::TYPE_RADIO => 'radio',
         Form::TYPE_RADIOLIST => 'radioList',
         Form::TYPE_LISTBOX => 'listBox',
-        Form::TYPE_DROPDOWNLIST => 'dropdownList'
+        Form::TYPE_DROPDOWNLIST => 'dropdownList',
+        Form::TYPE_WIDGET => 'widget'
     ];
 
     public static function configT($model)
     {
         $items = Json::decode($model->config,true);
         return (is_array($items)) ? array_map(function($item) use($model) {
-            return Module::settingT($model->category, $item);
+            return Module::settingT($model->module, $item);
             }, $items) : $model->config;
     }
 
@@ -43,6 +46,11 @@ class ActiveForm
         
         if(in_array($model->type, [Form::TYPE_INPUT]))
             return $form->field($model, "[$index]value")->$method($model->config)->label($label);
+
+        if(in_array($model->type, [Form::TYPE_WIDGET])){
+            $data = self::getConfigData($model);
+            return $form->field($model, "[$index]value")->$method($data['class'], $data['options'])->label($label);
+        }
     }
 
     private static function getMethodName($type)
@@ -54,11 +62,19 @@ class ActiveForm
     {
         $items = Json::decode($model->config,true);
 
+        if(isset($items['widget'])){
+            $class = $items['widget'];
+            $options = $items['options'];
+            return ['class' => $class, 'options' => $options];
+        }
+
         if(!isset($items['model']))
             return $model;
 
         $class  = $items['model']['class'];
-        $data   = $class::find()->all();
+
+        $where = isset($items['model']['where']) ? $items['model']['where'] : [];
+        $data   = $class::find()->where($where)->all();
 
         $model->config = Json::encode(ArrayHelper::map( $data,
             $items['model']['map']['key'],

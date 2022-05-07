@@ -59,7 +59,7 @@ class AuthController extends WebController
 
     public function actionSignup()
     {
-        if(Setting::findOne(['name' => 'page::signup'])->value) {
+        if(Setting::findOne(['name' => 'form::signup'])->value) {
             $model = new SignupForm();
             if ($model->load(Yii::$app->request->post())) {
                 if ($user = $model->signup()) {
