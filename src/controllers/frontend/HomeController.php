@@ -23,7 +23,11 @@ class HomeController extends WebController
 
         if ($hasContentModule) {
             $content = \portalium\content\models\Content::find()->where(['id_content' => $settings['page::home']])->one();
-            $content = $content->body;
+            if ($content) {
+                $content = $content->body;
+            }else{
+                $content = "<h1>".Module::t('No content')."</h1>";
+            }
         }else{
             $content = Module::t('<div class="site-index">
             <div class="jumbotron">
