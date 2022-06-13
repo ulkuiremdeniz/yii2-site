@@ -27,15 +27,22 @@ class Module extends \portalium\base\Module
         $menuItems = [
             [
                 [
+                    'menu' => 'web',
                     'type' => 'widget',
                     'label' => 'portalium\site\widgets\LoginButton',
                     'name' => 'Login',
                 ],
                 [
+                    'menu' => 'web',
                     'type' => 'widget',
                     'label' => 'portalium\site\widgets\Language',
                     'name' => 'Language',
                 ],
+                [
+                    'menu' => 'web',
+                    'type' => 'action',
+                    'route' => '/site/setting/index',
+                ]
             ],
         ];
         return $menuItems;
