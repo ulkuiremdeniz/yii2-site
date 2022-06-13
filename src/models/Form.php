@@ -18,6 +18,7 @@ class Form
     const TYPE_RADIOLIST        = 9;
     const TYPE_LISTBOX          = 10;
     const TYPE_DROPDOWNLIST     = 11;
+    const TYPE_WIDGET           = 12;
 
     public static function getTypes()
     {

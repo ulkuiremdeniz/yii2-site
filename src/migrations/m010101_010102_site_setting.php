@@ -16,7 +16,7 @@ class m010101_010102_site_setting extends Migration
         );
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'default::role',
             'label' => 'Default Role',
             'value' => 'admin',
@@ -33,7 +33,7 @@ class m010101_010102_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'admin::user_role',
             'label' => 'Default User Role',
             'value' => '0',

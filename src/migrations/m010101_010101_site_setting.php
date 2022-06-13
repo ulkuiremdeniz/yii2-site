@@ -7,23 +7,18 @@ class m010101_010101_site_setting extends Migration
 {
     public function up()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
-        }
-
         $this->createTable('site_setting', [
             'id' => $this->primaryKey(),
-            'category' => $this->string(64)->notNull(),
+            'module' => $this->string(64)->notNull(),
             'name' => $this->string(64)->notNull(),
             'label' => $this->string(64)->notNull(),
-			'value' => $this->string(64),
+			'value' => $this->text(),
             'type' => $this->tinyInteger(1)->notNull(),
             'config' => $this->text(),
-        ], $tableOptions);
+        ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'app::title',
             'label' => 'Title',
             'value' => 'Portalium',
@@ -32,7 +27,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'app::language',
             'label' => 'Language',
             'value' => 'en-US',
@@ -41,16 +36,27 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'page::home',
             'label' => 'Home Page',
             'value' => '0',
             'type' => Form::TYPE_DROPDOWNLIST,
-            'config' => json_encode([ 0 => 'Please Select'])
+            'config' => json_encode([
+                'model' => [
+                    'class' => 'portalium\content\models\Content', 
+                    'map' => [
+                        'key' => 'id_content' ,
+                        'value' => 'name'
+                    ],
+                    'where' => [
+                        'status' => '10'
+                    ]
+                ]
+            ])
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'page::logo',
             'label' => 'Logo Url',
             'value' => 'Portal',
@@ -59,70 +65,49 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'app::facebook',
-            'label' => 'Facebook Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
+            'module' => 'site',
+            'name' => 'page::logo',
+            'label' => 'Page Logo',
+            'value' => '0',
+            'type' => Form::TYPE_WIDGET,
+            'config' => json_encode([
+                'widget' => '\diginova\storage\widgets\FilePicker',
+                'options' => [
+                    'multiple' => 0,
+                    'returnAttribute' => ['id_storage']
+                ]
+            ])
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'app::twitter',
-            'label' => 'Twitter Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'app::instagram',
-            'label' => 'Instagram Link',
-            'value' => '',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'page::signup',
-            'label' => 'Signup Page',
+            'module' => 'site',
+            'name' => 'form::signup',
+            'label' => 'Signup Form',
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'page::about',
-            'label' => 'About Page',
+            'module' => 'site',
+            'name' => 'form::login',
+            'label' => 'Login Form',
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'page::login',
-            'label' => 'Login Page',
+            'module' => 'site',
+            'name' => 'form::contact',
+            'label' => 'Contact Form',
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'page::contact',
-            'label' => 'Contact Page',
-            'value' => '1',
-            'type' => Form::TYPE_RADIOLIST,
-            'config' => json_encode([ 1 => 'Show', 0 => 'Hide'])
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'api::signup',
             'label' => 'API Signup',
             'value' => '1',
@@ -131,7 +116,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'api::login',
             'label' => 'API Login',
             'value' => '1',
@@ -140,7 +125,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'email::address',
             'label' => 'Email Address',
             'value' => 'info@portalium.dev',
@@ -149,7 +134,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'email::displayname',
             'label' => 'Email Display Name',
             'value' => 'Portal',
@@ -158,7 +143,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'smtp::server',
             'label' => 'SMTP Server',
             'value' => 'smtp.gmail.com',
@@ -167,7 +152,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'smtp::port',
             'label' => 'SMTP Port',
             'value' => '465',
@@ -176,7 +161,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'smtp::username',
             'label' => 'SMTP Username',
             'value' => '',
@@ -185,7 +170,7 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting',[
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'smtp::password',
             'label' => 'SMTP Password',
             'value' => '',
@@ -194,29 +179,12 @@ class m010101_010101_site_setting extends Migration
         ]);
 
         $this->insert('site_setting', [
-            'category' => 'site',
+            'module' => 'site',
             'name' => 'smtp::encryption',
             'label' => 'SMTP Encryption',
             'value' => 'ssl',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode(['ssl' => 'SSL','tls' => 'TLS'])
-        ]);
-
-        $this->insert('site_setting', [
-            'category' => 'site',
-            'name' => 'admin::user',
-            'label' => 'Admin User',
-            'value' => '0',
-            'type' => Form::TYPE_DROPDOWNLIST,
-            'config' => json_encode([
-                'model' => [
-                    'class' => 'portalium\user\models\User', 
-                    'map' => [
-                        'key' => 'id' ,
-                        'value' => 'username'
-                    ]
-                ]
-            ])
         ]);
 
     }
