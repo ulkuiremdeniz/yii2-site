@@ -71,7 +71,7 @@ class m010101_010101_site_setting extends Migration
             'value' => '0',
             'type' => Form::TYPE_WIDGET,
             'config' => json_encode([
-                'widget' => '\diginova\storage\widgets\FilePicker',
+                'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
                     'returnAttribute' => ['id_storage']
