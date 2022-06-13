@@ -34,8 +34,11 @@ class SettingController extends WebController
 
     public function actionIndex()
     {
+        if(!Yii::$app->user->can('siteBackendSettingIndex')){
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $settings = Setting::find()
-            ->orderBy(['category' => SORT_ASC,'id' => SORT_ASC,'name'=>SORT_ASC])
+            ->orderBy(['module' => SORT_ASC,'id' => SORT_ASC,'name'=>SORT_ASC])
             ->indexBy('id')
             ->all();
        
@@ -46,10 +49,14 @@ class SettingController extends WebController
 
     public function actionUpdate()
     {
+        if(!Yii::$app->user->can('siteBackendSettingUpdate')){
+            throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
+        }
         $settings = Setting::find()->indexBy('id')->all();
-
+        Yii::warning(Yii::$app->request->post());
         if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
             foreach ($settings as $setting) {
+                Yii::warning($setting->id.':'.$setting->value);
                 $setting->save(false);
             }
             Yii::$app->session->setFlash('success', Module::t('Settings saved.'));

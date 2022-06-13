@@ -5,7 +5,7 @@ namespace portalium\site\widgets;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
-use portalium\menu\Module;
+use portalium\site\Module;
 use portalium\menu\models\MenuItem;
 use portalium\theme\widgets\NavBar;
 use portalium\theme\widgets\Nav as BaseNav;
