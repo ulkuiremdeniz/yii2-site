@@ -10,34 +10,16 @@ class m010101_010102_site_menu extends Migration
 
     public function up()
     {
-
-        $this->insert('menu_menu', [
-            'name' => 'site',
-            'slug' => 'site',
-            'type' => Menu::TYPE['web']
+        $id_menu = Menu::find()->where(['slug' => 'web-menu'])->one()->id_menu;
+        $this->batchInsert('menu_item', ['id_item', 'label', 'slug', 'type', 'style', 'data', 'sort', 'id_parent', 'id_menu', 'name_auth', 'date_create', 'date_update'], [
+            [NULL, 'Settings', 'setting', '2', '{"icon":"","color":"","iconSize":""}', '{"type":"2","data":{"module":"site","routeType":"action","route":"\\/site\\/setting\\/index","model":null,"menuRoute":null,"menuType":"web"}}', '7', '0', $id_menu, '', '2022-06-14 13:34:04', '2022-06-14 13:34:04'],
+            [NULL, 'Language', 'language', '2', '{"icon":"","color":"","iconSize":""}', '{"type":"2","data":{"module":"site","routeType":"widget","route":"portalium\\\\site\\\\widgets\\\\Language","model":null,"menuRoute":null,"menuType":"web"}}', '9', '0', $id_menu, '', '2022-06-14 13:34:36', '2022-06-14 13:34:36'],
+            [NULL, 'Login', 'login', '2', '{"icon":"","color":"","iconSize":""}', '{"type":"2","data":{"module":"site","routeType":"widget","route":"portalium\\\\site\\\\widgets\\\\LoginButton","model":null,"menuRoute":null,"menuType":"web"}}', '10', '0', $id_menu, '', '2022-06-14 13:35:38', '2022-06-14 13:35:38'],
         ]);
-        $id_menu = $this->db->getLastInsertID();
-
-        $this->insert('menu_item', [
-            'id_menu' => $id_menu,
-            'id_parent' => 0,
-            'name_auth' => 'admin',
-            'label' => 'Home',
-            'slug' => 'site-home',
-            'type' => MenuItem::TYPE['route'],
-            'data' => json_encode([
-                'type' => MenuItem::TYPE['route'],
-                'data' => [
-                    'route' => '/site/default/index'
-                ]
-            ]),
-            'sort' => 1
-        ]);
-
     }
 
     public function down()
     {
-        $this->dropTable('site_setting');
+
     }
 }
