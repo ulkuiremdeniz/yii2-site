@@ -57,17 +57,8 @@ class m010101_010101_site_setting extends Migration
 
         $this->insert('site_setting', [
             'module' => 'site',
-            'name' => 'page::logo',
-            'label' => 'Logo Url',
-            'value' => 'Portal',
-            'type' => Form::TYPE_INPUTTEXT,
-            'config' => ''
-        ]);
-
-        $this->insert('site_setting', [
-            'module' => 'site',
-            'name' => 'page::logo',
-            'label' => 'Page Logo',
+            'name' => 'app::logo',
+            'label' => 'Application Logo',
             'value' => '0',
             'type' => Form::TYPE_WIDGET,
             'config' => json_encode([
