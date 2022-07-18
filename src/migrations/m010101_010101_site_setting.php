@@ -57,6 +57,21 @@ class m010101_010101_site_setting extends Migration
 
         $this->insert('site_setting', [
             'module' => 'site',
+            'name' => 'app::logo',
+            'label' => 'Application Logo',
+            'value' => '0',
+            'type' => Form::TYPE_WIDGET,
+            'config' => json_encode([
+                'widget' => '\portalium\storage\widgets\FilePicker',
+                'options' => [
+                    'multiple' => 0,
+                    'returnAttribute' => ['name']
+                ]
+            ])
+        ]);
+
+        $this->insert('site_setting', [
+            'module' => 'site',
             'name' => 'form::signup',
             'label' => 'Signup Form',
             'value' => '1',

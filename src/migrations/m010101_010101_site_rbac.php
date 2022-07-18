@@ -8,22 +8,22 @@ class m010101_010101_site_rbac extends Migration
         $auth = Yii::$app->authManager;
 
         // add "viewUser" permission
-        $siteBackendSettingIndex = $auth->createPermission('siteBackendSettingIndex');
-        $siteBackendSettingIndex->description = 'siteBackendSettingIndex';
-        $auth->add($siteBackendSettingIndex);
+        $siteWebSettingIndex = $auth->createPermission('siteWebSettingIndex');
+        $siteWebSettingIndex->description = 'siteWebSettingIndex';
+        $auth->add($siteWebSettingIndex);
 
         // add "viewGroup" permission
-        $siteBackendSettingUpdate = $auth->createPermission('siteBackendSettingUpdate');
-        $siteBackendSettingUpdate->description = 'siteBackendSettingUpdate';
-        $auth->add($siteBackendSettingUpdate);
+        $siteWebSettingUpdate = $auth->createPermission('siteWebSettingUpdate');
+        $siteWebSettingUpdate->description = 'siteWebSettingUpdate';
+        $auth->add($siteWebSettingUpdate);
 
     }
 
     public function down()
     {
         $auth = Yii::$app->authManager;
-        $auth->remove($auth->getPermission('siteBackendSettingIndex'));
-        $auth->remove($auth->getPermission('siteBackendSettingUpdate'));
+        $auth->remove($auth->getPermission('siteWebSettingIndex'));
+        $auth->remove($auth->getPermission('siteWebSettingUpdate'));
 
     }
 }
