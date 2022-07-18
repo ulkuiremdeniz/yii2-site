@@ -1,19 +1,15 @@
 <?php
 
-namespace portalium\site\controllers\frontend;
+namespace portalium\site\controllers\web;
 
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
-use yii\filters\Cors;
+
 use portalium\site\models\LoginForm;
 use portalium\site\models\PasswordResetRequestForm;
 use portalium\site\models\ResetPasswordForm;
 use portalium\site\models\SignupForm;
-use portalium\site\models\ContactForm;
 use portalium\site\models\Setting;
 use portalium\site\Module;
 use portalium\web\Controller as WebController;

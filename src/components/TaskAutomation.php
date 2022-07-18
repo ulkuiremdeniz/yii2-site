@@ -34,8 +34,7 @@ class TaskAutomation extends BaseObject
         $role = (isset($role) && $role != '' && $role != '0') ? $auth->getRole($role) : $auth->getRole('user');
         
         if ($auth->getAssignment('user', $id)) {
-            var_dump('user already assigned');
-            return;
+            return 'user already assigned';
         }
         $auth->assign($role, $id);
 

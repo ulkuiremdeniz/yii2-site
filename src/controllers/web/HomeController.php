@@ -1,6 +1,6 @@
 <?php
 
-namespace portalium\site\controllers\frontend;
+namespace portalium\site\controllers\web;
 
 use Yii;
 use portalium\site\Module;
