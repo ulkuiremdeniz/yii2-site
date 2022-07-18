@@ -34,7 +34,7 @@ class SettingController extends WebController
 
     public function actionIndex()
     {
-        if(!Yii::$app->user->can('siteBackendSettingIndex')){
+        if(!Yii::$app->user->can('siteWebSettingIndex')){
             throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
         }
         $settings = Setting::find()
@@ -49,7 +49,7 @@ class SettingController extends WebController
 
     public function actionUpdate()
     {
-        if(!Yii::$app->user->can('siteBackendSettingUpdate')){
+        if(!Yii::$app->user->can('siteWebSettingUpdate')){
             throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
         }
         $settings = Setting::find()->indexBy('id')->all();
