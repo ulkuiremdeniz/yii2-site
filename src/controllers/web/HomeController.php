@@ -25,11 +25,12 @@ class HomeController extends WebController
             $content = \portalium\content\models\Content::find()->where(['id_content' => $settings['page::home']])->one();
             if ($content) {
                 $content = $content->body;
-            } else if ($content && $content['id_content'] == '') {
-                return $this->redirect('site/auth/login');
             } else {
-                $content = "<h1>" . Module::t('No content') . "</h1>";
-                return $this->redirect('site/auth/login');
+                if (Yii::$app->user->isGuest) {
+                    return $this->redirect('site/auth/login');
+                } else {
+                    $content = "<h1>" . Module::t('No content') . "</h1>";
+                }
             }
         } else {
             $content = Module::t('<div class="site-index">
