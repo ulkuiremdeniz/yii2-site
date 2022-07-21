@@ -55,7 +55,7 @@ class AuthController extends WebController
 
     public function actionSignup()
     {
-        if(Setting::findOne(['name' => 'form::signup'])->value) {
+        if (Setting::findOne(['name' => 'form::signup'])->value) {
             $model = new SignupForm();
             if ($model->load(Yii::$app->request->post())) {
                 if ($user = $model->signup()) {
@@ -82,7 +82,7 @@ class AuthController extends WebController
             } else {
                 Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
             }
-        }else{
+        } else {
             Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
         }
 
