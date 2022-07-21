@@ -82,10 +82,7 @@ class AuthController extends WebController
             } else {
                 Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
             }
-        }else{
-            Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
         }
-
 
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
