@@ -29,6 +29,7 @@ class HomeController extends WebController
                 return $this->redirect('site/auth/login');
             } else {
                 $content = "<h1>" . Module::t('No content') . "</h1>";
+                return $this->redirect('site/auth/login');
             }
         } else {
             $content = Module::t('<div class="site-index">
