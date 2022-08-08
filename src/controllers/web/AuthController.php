@@ -84,7 +84,6 @@ class AuthController extends WebController
             }
         }
 
-
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
         ]);
