@@ -8,30 +8,13 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use yii\base\Model;
-use portalium\site\models\LoginForm;
+use portalium\web\Controller as WebController;
+use portalium\site\Module;
 use portalium\site\models\SettingSearch;
 use portalium\site\models\Setting;
-use portalium\site\Module;
-use portalium\web\Controller as WebController;
 
 class SettingController extends WebController
 {
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['index','update'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
-    }
-
     public function actionIndex()
     {
         if(!Yii::$app->user->can('siteWebSettingIndex')){

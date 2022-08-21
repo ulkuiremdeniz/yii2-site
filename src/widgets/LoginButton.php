@@ -6,13 +6,9 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 use portalium\site\Module;
-use portalium\menu\models\MenuItem;
-use portalium\theme\widgets\NavBar;
-use portalium\theme\widgets\Nav as BaseNav;
 
 class LoginButton extends Widget
 {
-    
     public function init()
     {
         parent::init();
@@ -21,16 +17,9 @@ class LoginButton extends Widget
     public function run()
     {
         if (Yii::$app->user->isGuest) {
-            return '<li>' . Html::a(Module::t('Login'), ['/site/auth/login']) . '</li>';
+            return '<li class="nav-item">' . Html::a(Module::t('Login'), ['/site/auth/login'], ['class' => 'nav-link']) . '</li>';
         } else {
-                return '<li>'
-                . Html::beginForm(['/site/auth/logout'], 'post')
-                . Html::submitButton(
-                    Module::t('Logout'). ' (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>';
+            return '<li class="nav-item">' . Html::a(Module::t('Logout'). ' (' . Yii::$app->user->identity->username . ')',['/site/auth/logout'],['class' => 'nav-link']) . '</li>';
         }
     }
 }
