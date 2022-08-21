@@ -2,10 +2,9 @@
 
 namespace portalium\site;
 
-use portalium\site\components\TaskAutomation;
 use Yii;
 use portalium\user\Module as UserModule;
-
+use portalium\site\components\TaskAutomation;
 
 class Module extends \portalium\base\Module
 {
@@ -59,7 +58,10 @@ class Module extends \portalium\base\Module
     {
         return [
             'theme' => [
-                'class' => 'portalium\theme\Theme'
+                'class' => 'portalium\theme\Theme',
+            ],
+            'setting' => [
+                'class' => 'portalium\site\components\Setting',
             ]
         ];
     }
@@ -78,11 +80,9 @@ class Module extends \portalium\base\Module
         return parent::coreT($category, $message, $params);
     }
 
-    //register event
     public function registerEvents()
     {
         Yii::$app->on(UserModule::EVENT_USER_CREATE, [new TaskAutomation(), 'onUserCreate']);
         Yii::$app->on(self::EVENT_ON_SIGNUP, [new TaskAutomation(), 'onUserCreate']);
     }
-
 }

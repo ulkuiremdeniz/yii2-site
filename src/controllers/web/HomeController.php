@@ -3,25 +3,22 @@
 namespace portalium\site\controllers\web;
 
 use Yii;
-use portalium\site\Module;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\filters\AccessControl;
-use portalium\site\models\Setting;
-
-use portalium\site\models\ContactForm;
 use portalium\web\Controller as WebController;
+use portalium\site\Module;
+use portalium\site\models\Setting;
+use portalium\site\models\ContactForm;
 
 class HomeController extends WebController
 {
     public function actionIndex()
     {
         $settings = ArrayHelper::map(Setting::find()->asArray()->all(), 'name', 'value');
-        // has module content module
-        $hasContentModule = Yii::$app->hasModule('content');
         $content = "";
 
-        if ($hasContentModule) {
+        if (Yii::$app->hasModule('content')) {
             $content = \portalium\content\models\Content::find()->where(['id_content' => $settings['page::home']])->one();
             if ($content) {
                 $content = $content->body;
@@ -33,18 +30,13 @@ class HomeController extends WebController
                 }
             }
         } else {
-            $content = Module::t('<div class="site-index">
-            <div class="jumbotron">
-                <h1>' . Module::t('Portalium Home - Frontend') . '</h1>
-            </div>
-        </div>');
+            $content = "<div class=\"site-index\">
+                            <div class=\"jumbotron\">
+                                <h1>" . Module::t('Portalium Home - Frontend') . "</h1>
+                            </div>
+                        </div>";
         }
-        return $this->render(
-            'index',
-            [
-                'content' => $content,
-            ]
-        );
+        return $this->render('index',['content' => $content]);
     }
 
     public function actionAbout()

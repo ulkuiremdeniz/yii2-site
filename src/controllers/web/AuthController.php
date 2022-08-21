@@ -5,17 +5,18 @@ namespace portalium\site\controllers\web;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-
+use portalium\web\Controller as WebController;
+use portalium\site\Module;
 use portalium\site\models\LoginForm;
 use portalium\site\models\PasswordResetRequestForm;
 use portalium\site\models\ResetPasswordForm;
 use portalium\site\models\SignupForm;
 use portalium\site\models\Setting;
-use portalium\site\Module;
-use portalium\web\Controller as WebController;
 
 class AuthController extends WebController
 {
+    public $layout = '@portalium/theme/layouts/main';
+
     public function actions()
     {
         return [
