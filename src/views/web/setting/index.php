@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'header' => [
         ],
         'footer' => [
-            Html::submitButton(Module::t('Save'), ['class' => 'btn btn-primary']),
+            Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']),
         ]
     ]
 ]) ?>
