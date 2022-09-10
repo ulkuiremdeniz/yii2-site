@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
+use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
 
 $this->title = Module::t('Signup');
