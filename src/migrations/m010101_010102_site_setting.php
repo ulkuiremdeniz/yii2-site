@@ -18,7 +18,7 @@ class m010101_010102_site_setting extends Migration
         $this->insert('site_setting', [
             'module' => 'site',
             'name' => 'default::role',
-            'label' => 'Default Role',
+            'label' => 'Default Admin Role',
             'value' => 'admin',
             'type' => Form::TYPE_DROPDOWNLIST,
             'config' => json_encode([
@@ -27,6 +27,9 @@ class m010101_010102_site_setting extends Migration
                     'map' => [
                         'key' => 'name' ,
                         'value' => 'name'
+                    ],
+                    'where' => [
+                        'type' => 1
                     ]
                 ]
             ])
@@ -44,6 +47,9 @@ class m010101_010102_site_setting extends Migration
                     'map' => [
                         'key' => 'name' ,
                         'value' => 'name'
+                    ],
+                    'where' => [
+                        'type' => 1
                     ]
                 ]
             ])
