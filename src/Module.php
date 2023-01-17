@@ -16,6 +16,7 @@ class Module extends \portalium\base\Module
             'class' => 'yii\rest\UrlRule',
             'controller' => [
                 'site/auth',
+                'site/setting',
             ]
         ],
     ];
