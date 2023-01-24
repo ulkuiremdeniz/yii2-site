@@ -18,7 +18,7 @@ class HomeController extends WebController
         $content = "";
 
         if (Yii::$app->hasModule('content')) {
-            $content = \portalium\content\models\Content::find()->where(['id_content' => Yii::$app->settings->getValue('page::home')])->one();
+            $content = \portalium\content\models\Content::find()->where(['id_content' => Yii::$app->setting->getValue('page::home')])->one();
             if ($content) {
                 $content = $content->body;
             } else {
