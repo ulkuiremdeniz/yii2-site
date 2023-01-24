@@ -13,11 +13,11 @@ class Mailer extends CoreMailer
 
         $transport = [
             'class' => 'Swift_SmtpTransport',
-            'host' => Yii::$app->settings->getValue('smtp::server'),
-            'username' => Yii::$app->settings->getValue('smtp::username'),
-            'password' => Yii::$app->settings->getValue('smtp::password'),
-            'port' => Yii::$app->settings->getValue('smtp::port'),
-            'encryption' => Yii::$app->settings->getValue('smtp::encryption'),
+            'host' => Yii::$app->setting->getValue('smtp::server'),
+            'username' => Yii::$app->setting->getValue('smtp::username'),
+            'password' => Yii::$app->setting->getValue('smtp::password'),
+            'port' => Yii::$app->setting->getValue('smtp::port'),
+            'encryption' => Yii::$app->setting->getValue('smtp::encryption'),
         ];
 
         $this->setTransport($transport);
