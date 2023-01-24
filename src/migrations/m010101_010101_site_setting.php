@@ -4,7 +4,7 @@ use yii\db\Migration;
 use portalium\site\Module;
 use portalium\site\models\Form;
 
-class m010101_010101_setting extends Migration
+class m010101_010101_site_setting extends Migration
 {
     public function up()
     {
