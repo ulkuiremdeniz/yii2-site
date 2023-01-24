@@ -1,9 +1,10 @@
 <?php
 
-use yii\db\Migration;
-use portalium\site\models\Form;
 use Yii;
+use yii\db\Migration;
+use portalium\site\Module;
 use yii\helpers\ArrayHelper;
+use portalium\site\models\Form;
 
 class m010101_010102_site_setting extends Migration
 {
@@ -15,7 +16,7 @@ class m010101_010102_site_setting extends Migration
             'name'
         );
 
-        $this->insert('site_setting', [
+        $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
             'name' => 'default::role',
             'label' => 'Default Admin Role',
@@ -35,7 +36,7 @@ class m010101_010102_site_setting extends Migration
             ])
         ]);
 
-        $this->insert('site_setting', [
+        $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
             'name' => 'admin::user_role',
             'label' => 'Default User Role',
@@ -58,6 +59,6 @@ class m010101_010102_site_setting extends Migration
 
     public function down()
     {
-        $this->dropTable('site_setting');
+        $this->dropTable(Module::$tablePrefix . 'setting');
     }
 }

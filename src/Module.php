@@ -81,9 +81,4 @@ class Module extends \portalium\base\Module
         return parent::coreT($category, $message, $params);
     }
 
-    public function registerEvents()
-    {
-        Yii::$app->on(UserModule::EVENT_USER_CREATE, [new TaskAutomation(), 'onUserCreate']);
-        Yii::$app->on(self::EVENT_ON_SIGNUP, [new TaskAutomation(), 'onUserCreate']);
-    }
 }

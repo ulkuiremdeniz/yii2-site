@@ -10,17 +10,20 @@ class m010101_010101_site_rbac extends Migration
         $admin->description = 'Admin';
         $auth->add($admin);
 
-        // add "viewUser" permission
         $siteWebSettingIndex = $auth->createPermission('siteWebSettingIndex');
-        $siteWebSettingIndex->description = 'siteWebSettingIndex';
+        $siteWebSettingIndex->description = 'Site Web Setting Index';
         $auth->add($siteWebSettingIndex);
         $auth->addChild($admin, $siteWebSettingIndex);
 
-        // add "viewGroup" permission
         $siteWebSettingUpdate = $auth->createPermission('siteWebSettingUpdate');
-        $siteWebSettingUpdate->description = 'siteWebSettingUpdate';
+        $siteWebSettingUpdate->description = 'Site Web Setting Update';
         $auth->add($siteWebSettingUpdate);
         $auth->addChild($admin, $siteWebSettingUpdate);
+
+        $siteAPISettingIndex = $auth->createPermission('siteAPISettingIndex');
+        $siteAPISettingIndex->description = 'Site API Setting Index';
+        $auth->add($siteAPISettingIndex);
+        $auth->addChild($admin, $siteAPISettingIndex);
 
     }
 
