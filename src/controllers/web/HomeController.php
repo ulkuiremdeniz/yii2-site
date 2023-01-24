@@ -15,11 +15,10 @@ class HomeController extends WebController
 {
     public function actionIndex()
     {
-        $settings = ArrayHelper::map(Setting::find()->asArray()->all(), 'name', 'value');
         $content = "";
 
         if (Yii::$app->hasModule('content')) {
-            $content = \portalium\content\models\Content::find()->where(['id_content' => $settings['page::home']])->one();
+            $content = \portalium\content\models\Content::find()->where(['id_content' => Yii::$app->settings->getValue('page::home')])->one();
             if ($content) {
                 $content = $content->body;
             } else {
