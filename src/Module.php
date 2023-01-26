@@ -58,9 +58,6 @@ class Module extends \portalium\base\Module
     public function registerComponents()
     {
         return [
-            'theme' => [
-                'class' => 'portalium\theme\Theme',
-            ],
             'setting' => [
                 'class' => 'portalium\site\components\Setting',
             ]
