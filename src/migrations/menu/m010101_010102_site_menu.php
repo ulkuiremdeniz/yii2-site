@@ -1,7 +1,7 @@
 <?php
 
 use portalium\menu\models\Menu;
-use yii\db\Migration;
+use portalium\db\Migration;
 
 class m010101_010102_site_menu extends Migration
 {

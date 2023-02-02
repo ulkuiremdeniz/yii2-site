@@ -1,5 +1,5 @@
 <?php
-use yii\db\Migration;
+use portalium\db\Migration;
 
 class m010101_010101_site_rbac extends Migration
 {
