@@ -1,6 +1,6 @@
 <?php
 
-use portalium\db\Migration;
+use yii\db\Migration;
 use portalium\site\Module;
 use portalium\site\models\Form;
 
