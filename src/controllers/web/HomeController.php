@@ -10,6 +10,7 @@ use portalium\web\Controller as WebController;
 use portalium\site\Module;
 use portalium\site\models\Setting;
 use portalium\site\models\ContactForm;
+use portalium\content\models\Category;
 
 class HomeController extends WebController
 {
@@ -20,7 +21,7 @@ class HomeController extends WebController
         if (Yii::$app->hasModule('content')) {
             $content = \portalium\content\models\Content::find()->where(['id_content' => Yii::$app->setting->getValue('page::home')])->one();
             if ($content) {
-                $content = $content->body;
+                return $this->redirect(['/content/default/show', 'id' => $content->id_content]);
             } else {
                 if (Yii::$app->user->isGuest) {
                     return $this->redirect('site/auth/login');
@@ -31,7 +32,7 @@ class HomeController extends WebController
         } else {
             $content = "<div class=\"site-index\">
                             <div class=\"jumbotron\">
-                                <h1>" . Module::t('Portalium Home - Frontend') . "</h1>
+                                <h1>" . Module::t('Portalium Home') . "</h1>
                             </div>
                         </div>";
         }
@@ -71,5 +72,26 @@ class HomeController extends WebController
     {
         Yii::$app->session->set('lang', $lang);
         return $this->goBack(Yii::$app->request->referrer);
+    }
+
+    public function actionPrivacy()
+    {
+        $content = "";
+        $content_category = Category::find()->where(['slug' => "privacy"])->one();
+        if (Yii::$app->hasModule('content') && $content_category) {
+            $content = \portalium\content\models\Content::find()->where(['id_category' => $content_category->id_category])->one();
+            if ($content) {
+                $content = $content->body;
+            } else {
+                $content = "<h1>" . Module::t('No content') . "</h1>";
+            }
+        } else {
+            $content = "<div class=\"site-index\">
+                            <div class=\"jumbotron\">
+                                <h1>" . Module::t('No Content') . "</h1>
+                            </div>
+                        </div>";
+        }
+        return $this->render('index',['content' => $content]);
     }
 }
