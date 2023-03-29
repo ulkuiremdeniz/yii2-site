@@ -1,7 +1,7 @@
 <?php
 
 use Yii;
-use portalium\db\Migration;
+use yii\db\Migration;
 use portalium\site\Module;
 use yii\helpers\ArrayHelper;
 use portalium\site\models\Form;

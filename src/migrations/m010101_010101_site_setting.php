@@ -1,6 +1,6 @@
 <?php
 
-use portalium\db\Migration;
+use yii\db\Migration;
 use portalium\site\Module;
 use portalium\site\models\Form;
 
@@ -51,6 +51,24 @@ class m010101_010101_site_setting extends Migration
                     ],
                     'where' => [
                         'status' => '10'
+                    ]
+                ]
+            ])
+        ]);
+
+        $this->insert('site-setting', [
+            'module' => 'site',
+            'name' => 'auth::layout',
+            'label' => 'Auth Layout',
+            'value' => '0',
+            'type' => Form::TYPE_DROPDOWNLIST,
+            'config' => json_encode([
+                'method' => [
+                    'class' => 'portalium\theme\Module',
+                    'name' => 'getLayouts',
+                    'map' => [
+                        'key' => 'layout',
+                        'value' => 'name'
                     ]
                 ]
             ])
