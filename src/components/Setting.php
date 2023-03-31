@@ -3,8 +3,10 @@
 namespace portalium\site\components;
 
 use yii\base\Component;
-use yii\base\InvalidConfigException;
+use portalium\site\Module;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use yii\base\InvalidConfigException;
 use portalium\site\models\Setting as Settings;
 
 class Setting extends Component
