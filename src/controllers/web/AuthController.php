@@ -17,7 +17,7 @@ use portalium\site\models\PasswordResetRequestForm;
 class AuthController extends WebController
 {
     public $layout = '@portalium/theme/layouts/main';
-    
+
     public function behaviors()
     {
         return [
@@ -32,7 +32,14 @@ class AuthController extends WebController
             ],
         ];
     }
-    
+
+    //beforeAction
+    public function beforeAction($action)
+    {
+        $this->layout = '@portalium/theme/layouts/' . Yii::$app->setting->getValue('auth::layout');
+        return parent::beforeAction($action);
+    }
+
     public function actions()
     {
         return [

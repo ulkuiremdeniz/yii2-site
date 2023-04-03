@@ -68,18 +68,28 @@ class ActiveForm
             return ['class' => $class, 'options' => $options];
         }
 
-        if(!isset($items['model']))
-            return $model;
+        if(isset($items['model'])){
+            $class  = $items['model']['class'];
 
-        $class  = $items['model']['class'];
+            $where = isset($items['model']['where']) ? $items['model']['where'] : [];
+            $data   = $class::find()->where($where)->all();
 
-        $where = isset($items['model']['where']) ? $items['model']['where'] : [];
-        $data   = $class::find()->where($where)->all();
+            $model->config = Json::encode(ArrayHelper::map( $data,
+                $items['model']['map']['key'],
+                $items['model']['map']['value']
+            ),true);
+        }
 
-        $model->config = Json::encode(ArrayHelper::map( $data,
-            $items['model']['map']['key'],
-            $items['model']['map']['value']
-        ),true);
+        if(isset($items['method'])){
+            $class = $items['method']['class'];
+
+            $method = $items['method']['name'];
+            $model->config = Json::encode(ArrayHelper::map( $class::$method(),
+                $items['method']['map']['key'],
+                $items['method']['map']['value']
+            ),true);
+        }
+        
 
         return $model;
     }

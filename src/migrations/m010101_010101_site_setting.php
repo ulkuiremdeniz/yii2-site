@@ -56,6 +56,24 @@ class m010101_010101_site_setting extends Migration
             ])
         ]);
 
+        $this->insert('site-setting', [
+            'module' => 'site',
+            'name' => 'auth::layout',
+            'label' => 'Auth Layout',
+            'value' => '0',
+            'type' => Form::TYPE_DROPDOWNLIST,
+            'config' => json_encode([
+                'method' => [
+                    'class' => 'portalium\theme\Module',
+                    'name' => 'getLayouts',
+                    'map' => [
+                        'key' => 'layout',
+                        'value' => 'name'
+                    ]
+                ]
+            ])
+        ]);
+
         $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
             'name' => 'app::logo',
