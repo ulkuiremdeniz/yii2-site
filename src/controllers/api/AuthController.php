@@ -63,7 +63,7 @@ class AuthController extends RestController
             'email' => $user->email,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
-            'created_at' => $user->created_at,
+            'date_create' => $user->date_create,
             'access_token' => $user->access_token
         ];
     }
