@@ -56,7 +56,7 @@ class m010101_010101_site_setting extends Migration
             ])
         ]);
 
-        $this->insert('site-setting', [
+        $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
             'name' => 'auth::layout',
             'label' => 'Auth Layout',
