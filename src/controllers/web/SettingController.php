@@ -36,10 +36,8 @@ class SettingController extends WebController
             throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
         }
         $settings = Setting::find()->indexBy('id')->all();
-        Yii::warning(Yii::$app->request->post());
         if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
             foreach ($settings as $setting) {
-                Yii::warning($setting->id.':'.$setting->value);
                 $setting->save(false);
             }
             Yii::$app->session->setFlash('success', Module::t('Settings saved.'));

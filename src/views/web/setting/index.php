@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\Json;
-use yii\widgets\ActiveForm;
+use portalium\theme\widgets\ActiveForm;
 
 use portalium\site\Module;
 use portalium\site\models\Setting;
