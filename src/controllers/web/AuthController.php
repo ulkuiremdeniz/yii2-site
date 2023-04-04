@@ -36,7 +36,7 @@ class AuthController extends WebController
     //beforeAction
     public function beforeAction($action)
     {
-        if (Yii::$app->setting->getValue('auth::layout') != '' && Yii::$app->setting->getValue('auth::layout') != 0)
+        if (Yii::$app->setting->getValue('auth::layout') != '')
             $this->layout = '@portalium/theme/layouts/' . Yii::$app->setting->getValue('auth::layout');
 
         return parent::beforeAction($action);
@@ -50,14 +50,6 @@ class AuthController extends WebController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ]
         ];
-    }
-
-    public function beforeAction($action)
-    {
-        if (Yii::$app->setting->getValue('auth::layout') != '')
-            $this->layout = '@portalium/theme/layouts/' . Yii::$app->setting->getValue('auth::layout');
-
-        return parent::beforeAction($action);
     }
 
 
