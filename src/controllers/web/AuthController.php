@@ -52,6 +52,15 @@ class AuthController extends WebController
         ];
     }
 
+    public function beforeAction($action)
+    {
+        if (Yii::$app->setting->getValue('auth::layout') != '')
+            $this->layout = '@portalium/theme/layouts/' . Yii::$app->setting->getValue('auth::layout');
+
+        return parent::beforeAction($action);
+    }
+
+
     public function actionIndex()
     {
         return $this->redirect('login');
