@@ -50,7 +50,7 @@ class m010101_010101_site_setting extends Migration
                         'value' => 'name'
                     ],
                     'where' => [
-                        'status' => '10'
+                        'status' => '2'
                     ]
                 ]
             ])
