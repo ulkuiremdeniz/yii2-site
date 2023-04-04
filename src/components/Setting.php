@@ -33,7 +33,7 @@ class Setting extends Component
 
     private function decode($value)
     {
-        return (is_object(json_decode($value))) ? json_decode($value, true): $value;
+        return ($this->isJson($value,true)) ? json_decode($value, true): $value;
     }
 
     private function findSetting($name)
@@ -43,5 +43,11 @@ class Setting extends Component
         }
 
         throw new NotFoundHttpException(Module::t('The requested setting does not exist.'));
+    }
+
+    function isJson($value) {
+        $value = strval($value);
+        json_decode($value);
+        return json_last_error() === JSON_ERROR_NONE;
     }
 }
