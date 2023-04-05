@@ -5,24 +5,43 @@ use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
 
 $this->title = Module::t('Login');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p><?= Module::t('Please fill out the following fields to login:') ?></p>
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'rememberMe')->checkbox()->label(Module::t('Remember Me')) ?>
-                <div style="color:#999;margin:1em 0">
-                    <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset']) ?>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h3 mb-3 fw-normal"><?= Html::encode($this->title) ?></h1>
+
+                <?php $form = ActiveForm::begin(['id' => 'login-form',
+                    'options' => ['class' => 'form-horizontal'],
+                    'fieldConfig' => [
+                        'horizontalCssClasses' => [
+                            'label' => 'col-sm-3',
+                            'wrapper' => 'col-sm-9',
+                        ],
+                        'labelOptions' => ['style' => 'margin-top: 10px;'],
+                    ],    
+                ],
+            ); ?>
+                
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg']) ?>
+
+                <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control form-control-lg']) ?>
+                <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'float: right;']) ?>
+                <?= '<div class = "clearfix"></div>' .
+                $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:10px; float:right;']])->checkbox([
+                    'template' => "<div class=\"form-check\">\n{input} {label}\n</div>",
+                ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
+                <div class = "clearfix"></div>
+                <div class="d-grid">
+                    <?= '<div class = "clearfix"></div>' .Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
-                <div class="form-group">
-                    <?= Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
+
+                <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
+</div>
 </div>
