@@ -27,24 +27,29 @@ $this->title = Module::t('Login');
                     ],
                 ]); ?>
                 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Username')]) ?>
-                <?= '<div class = "clearfix" style = "margin-top:2px;"></div>' .$form->field($model, 'password')->passwordInput(['class' => 'form-control form-control-lg', 'placeholder' => Module::t('Password')]) ?>
-                <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'float: right;']) ?>
-                <div class = "clearfix"></div>
-                <?= 
-                $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px; float:right;']])->checkbox([
-                    'template' => "<div class=\"form-check\">\n{input} {label}\n</div>",
-                ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
+                <?= $form->field($model, 'username', ['options'=>['style'=>'margin-right:10px; margin-left:10px;']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Username')]) ?>
+                <?= '<div class = "clearfix" style = "margin-top:2px;"></div>' .$form->field($model, 'password', ['options'=>['style'=>'margin-right:10px; margin-left:10px;']])->passwordInput(['class' => 'form-control form-control-lg', 'placeholder' => Module::t('Password')]) ?>
                 
-                
-                <div class = "clearfix"></div>
-                <div style="float:right">
-                    <?= '<div class = "clearfix"></div>' .Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button', 'style'=>'float:right; margin-top:0px;']) ?>
+                <div class="row" style="margin-right: 10px; margin-left:10px;">
+                    <div class="col-5">
+                    <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-5">
+                    <?= 
+                        $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px;']])->checkbox([
+                            'template' => "<div style='margin-left:24px;'>\n{input} {label}\n</div>",
+                        ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
+                    </div>
                 </div>
-                
-
-                
-
+                <div class="d-grid" style="margin-left:10px; margin-right:10px;">
+                    <?= '<div class = "clearfix"></div>' .Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                </div>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
