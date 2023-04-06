@@ -28,13 +28,13 @@ class Language extends Widget
 
         foreach ($languages as $key => $value){
             $langItems[] = [
-                'label' => $this->icon . Module::t($value),
+                'label' => Module::t($value),
                 'url' => ['/site/home/lang','lang' => $key]
             ];
         }
 
         $menuItems[] = [
-            'label' => $this->icon . Module::t($languages[Yii::$app->language]),
+            'label' => Module::t($languages[Yii::$app->language]),
             'url' => ['/site/home/lang','lang' => Yii::$app->language],
             'items' => $langItems,
         ];
