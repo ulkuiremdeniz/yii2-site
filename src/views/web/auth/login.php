@@ -31,19 +31,14 @@ $this->title = Module::t('Login');
                 <?= '<div class = "clearfix" style = "margin-top:2px;"></div>' .$form->field($model, 'password', ['options'=>['style'=>'margin-right:10px; margin-left:10px;']])->passwordInput(['class' => 'form-control form-control-lg', 'placeholder' => Module::t('Password')]) ?>
                 
                 <div class="row" style="margin-right: 10px; margin-left:10px;">
-                    <div class="col-5">
+                    <div class="col-6" style="padding-right:0px">
                     <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
                     </div>
-                    <div class="col-1">
-
-                    </div>
-                    <div class="col-1">
-
-                    </div>
-                    <div class="col-5">
+                    
+                    <div class="col-6" style="padding-right:0px; margin-left:-13px;">
                     <?= 
-                        $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px;']])->checkbox([
-                            'template' => "<div style='margin-left:24px;'>\n{input} {label}\n</div>",
+                        $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px; float:right;']])->checkbox([
+                            'template' => "<div style='padding-right:0px; '>\n{input} {label}\n</div>",
                         ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
                     </div>
                 </div>
