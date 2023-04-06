@@ -12,8 +12,12 @@ class Language extends Widget
 {
     public $options;
 
+    public $icon;
     public function init()
     {
+        if(!$this->icon){
+            $this->icon = Html::tag('i', '', ['class' => '', 'style' => 'margin-right: 5px;']);
+        }
         parent::init();
     }
 
@@ -24,13 +28,13 @@ class Language extends Widget
 
         foreach ($languages as $key => $value){
             $langItems[] = [
-                'label' => Module::t($value),
+                'label' => $this->icon . Module::t($value),
                 'url' => ['/site/home/lang','lang' => $key]
             ];
         }
 
         $menuItems[] = [
-            'label' => Module::t($languages[Yii::$app->language]),
+            'label' => $this->icon . Module::t($languages[Yii::$app->language]),
             'url' => ['/site/home/lang','lang' => Yii::$app->language],
             'items' => $langItems,
         ];
