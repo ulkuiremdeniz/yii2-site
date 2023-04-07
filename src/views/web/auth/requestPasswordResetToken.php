@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
+use portalium\site\bundles\AppAsset;
+use portalium\theme\widgets\ActiveForm;
 
 $this->title = Module::t('Request password reset');
+AppAsset::register($this);
 ?>
 <div class="site-request-password-reset">
     <div class="row justify-content-center">
@@ -26,7 +28,7 @@ $this->title = Module::t('Request password reset');
                         ],
                     ]); ?>
                     
-                    <?= $form->field($model, 'email', ['options'=>['style'=>'margin-right:10px; margin-left:10px;']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Email')]) ?>
+                    <?= $form->field($model, 'email', ['options'=>['class' => 'form-attribute mb-3 row']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Email')]) ?>
                     <div class="d-grid" style="margin-left:10px; margin-right:10px;">
                         <?= '<div class = "clearfix"></div>' .Html::submitButton('Send', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                     </div>
