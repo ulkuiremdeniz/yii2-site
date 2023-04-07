@@ -42,9 +42,14 @@ $this->title = Module::t('Login');
                         ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
                     </div>
                 </div>
-                <div class="d-grid" style="margin-left:10px; margin-right:10px;">
-                    <?= '<div class = "clearfix"></div>' .Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="d-grid mb-3" style="margin-left:10px; margin-right:10px;">
+                    <?= '<div class = "clearfix"></div>' .Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
+                <?php if (Yii::$app->setting->getValue('form::signup')): ?>
+                    <div class="d-grid mb-3" style="margin-left:10px; margin-right:10px;">
+                        <?= '<div class = "clearfix"></div>' .Html::a(Module::t('Signup'), ['/site/auth/signup'], ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+                    </div>
+                <?php endif; ?>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>

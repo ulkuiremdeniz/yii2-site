@@ -5,19 +5,34 @@ use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
 
 $this->title = Module::t('Request password reset');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-request-password-reset">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p><?= Module::t('Please fill out your email. A link to reset password will be sent there.') ?></p>
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Module::t('Send'), ['class' => 'btn btn-primary']) ?>
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="h3 mb-3 fw-normal text-center"><?= Html::encode($this->title) ?></h1>
+
+                    <?php $form = ActiveForm::begin([
+                        'id' => 'request-password-reset-form',
+                        'options' => ['class' => 'form-horizontal'],
+                        'fieldConfig' => [
+                            'horizontalCssClasses' => [
+                                'label' => 'col-sm-4',
+                                'wrapper' => 'col-sm-8',
+                            ],
+                            'template' => "{input}\n{hint}\n{error}",
+                            'labelOptions' => ['style' => 'margin-top: 10px;'],
+                        ],
+                    ]); ?>
+                    
+                    <?= $form->field($model, 'email', ['options'=>['style'=>'margin-right:10px; margin-left:10px;']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Email')]) ?>
+                    <div class="d-grid" style="margin-left:10px; margin-right:10px;">
+                        <?= '<div class = "clearfix"></div>' .Html::submitButton('Send', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    </div>
+                    <?php ActiveForm::end(); ?>
                 </div>
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
 </div>
