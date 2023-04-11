@@ -11,6 +11,8 @@ class Module extends \portalium\base\Module
     const EVENT_ON_LOGIN = 'siteAfterLogin';
     const EVENT_ON_SIGNUP = 'siteAfterSignup';
 
+    public static $description = 'Site Management Module';
+    public static $name = 'Site';
     public $apiRules = [
         [
             'class' => 'yii\rest\UrlRule',
