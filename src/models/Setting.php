@@ -2,9 +2,11 @@
 
 namespace portalium\site\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use portalium\site\Module;
 use portalium\site\models\Form;
+use portalium\site\models\SettingValue;
 
 class Setting extends ActiveRecord
 {
@@ -17,9 +19,10 @@ class Setting extends ActiveRecord
     {
         return [
             [['module','name','label','type'], 'required'],
-            [['name', 'value'], 'string', 'max' => 200],
+            [['name'], 'string', 'max' => 200],
             ['type', 'default', 'value' => Form::TYPE_INPUT],
             ['type', 'in', 'range' => Form::getTypes()],
+            ['value', 'safe'],
         ];
     }
 

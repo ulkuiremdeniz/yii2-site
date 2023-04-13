@@ -3,15 +3,11 @@
 namespace portalium\site\controllers\web;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\helpers\Json;
-use yii\helpers\ArrayHelper;
-use yii\base\Model;
-use portalium\web\Controller as WebController;
 use portalium\site\Module;
-use portalium\site\models\SettingSearch;
+use yii\helpers\ArrayHelper;
 use portalium\site\models\Setting;
+use portalium\site\models\SettingValue;
+use portalium\web\Controller as WebController;
 
 class SettingController extends WebController
 {
@@ -24,9 +20,15 @@ class SettingController extends WebController
             ->orderBy(['module' => SORT_ASC,'id' => SORT_ASC,'name'=>SORT_ASC])
             ->indexBy('id')
             ->all();
-       
+        $settingsGroup = ArrayHelper::index($settings, null, 'module');
+        
+        foreach ($settings as $setting) {
+            $setting->value = ($this->isJson($setting->value) && in_array($setting->type, SettingValue::getScenarios()['multiple'])) ? json_decode($setting->value) : $setting->value;
+        }
+
         return $this->render('index', [
             'settings' => $settings,
+            'settingsGroup' => $settingsGroup
         ]);
     }
 
@@ -36,15 +38,42 @@ class SettingController extends WebController
             throw new \yii\web\ForbiddenHttpException(Module::t('You are not allowed to access this page.'));
         }
         $settings = Setting::find()->indexBy('id')->all();
-        if (Model::loadMultiple($settings, Yii::$app->request->post()) && Model::validateMultiple($settings)) {
-            foreach ($settings as $setting) {
-                $setting->save(false);
+        $settingsData = Yii::$app->request->post('Setting');
+
+        foreach ($settings as $setting) {
+            $valueModel = new SettingValue();
+            if(!isset($settingsData["$setting->module-$setting->id"])){
+                continue;
+            }else{
+                
             }
-            Yii::$app->session->setFlash('success', Module::t('Settings saved.'));
-        }else{
-            Yii::$app->session->setFlash('error', Module::t('There are an error. Settings not saved.'));
+
+            $valueModel->value = $settingsData["$setting->module-$setting->id"]['value'];
+            
+            $valueModel->scenario = $setting->type;
+            if ($valueModel->validate()) {
+                $settingsData["$setting->module-$setting->id"]['value'] = (is_array($valueModel->value)) ? json_encode($valueModel->value) : $valueModel->value;
+            }else{
+                Yii::$app->session->setFlash('error', Module::t('There are an error. Settings not saved.'));
+                return $this->redirect('index');
+            }
+
+            $setting->value = $settingsData["$setting->module-$setting->id"]['value'];
+
+            if ($setting->validate()) {
+                $setting->save();
+            }else{
+                Yii::$app->session->setFlash('error', Module::t('There are an error. Settings not saved.'));
+                return $this->redirect('index');
+            }
         }
+        
 
         return $this->redirect('index');
+    }
+
+    public function isJson($string) {
+        json_decode($string);
+        return json_last_error() === JSON_ERROR_NONE;
     }
 }

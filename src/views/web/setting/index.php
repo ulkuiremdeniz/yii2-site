@@ -13,6 +13,8 @@ use portalium\theme\widgets\Panel;
 
 $this->title = Module::t('Settings');
 $this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <?php $form = ActiveForm::begin(['action' => Url::to(['setting/update']), 'id' => 'setting-update', 'method' => 'post', 'class' => 'form-horizontal']); ?>
 <?php Panel::begin([
@@ -25,10 +27,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]
 ]) ?>
-<?php foreach ($settings as $index => $setting) : ?>
-    <?php if(Form::TYPE_INPUTHIDDEN != $setting->type): ?>
-            <?= SettingForm::field($form, $setting, $index, Module::settingT($setting->module, $setting->label)) ?>
-    <?php endif; ?>
-<?php endforeach; ?>
+
+<?php 
+$tabsData = [];
+foreach ($settingsGroup as $module => $items) {
+    $tabsData[] = [
+        'label' => Yii::$app->getModule($module)->t(Yii::$app->getModule($module)::$name),
+        'content' => $this->render('_setting', ['settings' => $items, 'form' => $form]),
+    ];
+}
+
+echo \portalium\theme\widgets\Tabs::widget([
+    'items' => $tabsData,
+    'options' => [
+        'class' => 'nav-tabs-custom', 'style' => 'margin-bottom: 10px;'
+    ]
+]);
+?>
 <?php Panel::end() ?>
 <?php ActiveForm::end(); ?>
