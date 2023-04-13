@@ -8,6 +8,8 @@ use portalium\site\Module;
 use yii\helpers\ArrayHelper;
 use portalium\site\models\Form;
 use portalium\content\models\Content;
+use portalium\site\models\Setting;
+use portalium\theme\widgets\Html;
 
 class ActiveForm
 {
@@ -38,7 +40,8 @@ class ActiveForm
     public static function field($form, $model, $index, $label)
     {
         $method = self::getMethodName($model->type);
-        if(in_array($model->type, [Form::TYPE_INPUTFILE, Form::TYPE_TEXTAREA, Form::TYPE_CHECKBOX, Form::TYPE_CHECKBOXLIST, Form::TYPE_RADIO, Form::TYPE_RADIOLIST, Form::TYPE_LISTBOX, Form::TYPE_DROPDOWNLIST]))
+
+        if(in_array($model->type, [Form::TYPE_INPUTFILE, Form::TYPE_TEXTAREA, Form::TYPE_CHECKBOX, Form::TYPE_RADIO, Form::TYPE_RADIOLIST, Form::TYPE_LISTBOX, Form::TYPE_DROPDOWNLIST]))
             return $form->field($model, "[$index]value")->$method(self::configT(self::getConfigData($model)))->label($label);
 
         if(in_array($model->type, [Form::TYPE_INPUTTEXT, Form::TYPE_INPUTPASSWORD]))
@@ -51,6 +54,9 @@ class ActiveForm
             $data = self::getConfigData($model);
             return $form->field($model, "[$index]value")->$method($data['class'], $data['options'])->label($label);
         }
+        
+        if(in_array($model->type, [Form::TYPE_CHECKBOXLIST]))
+            return $form->field($model, "[$index]value")->$method(self::configT(self::getConfigData($model)))->label($label);
     }
 
     private static function getMethodName($type)
