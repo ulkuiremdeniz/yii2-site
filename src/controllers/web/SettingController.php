@@ -54,7 +54,7 @@ class SettingController extends WebController
             if ($valueModel->validate()) {
                 $settingsData["$setting->module-$setting->id"]['value'] = (is_array($valueModel->value)) ? json_encode($valueModel->value) : $valueModel->value;
             }else{
-                Yii::$app->session->setFlash('error', Module::t('There are an error. Settings not saved.'));
+                Yii::$app->session->addFlash('error', Module::t('There are an error. Settings not saved.'));
                 return $this->redirect('index');
             }
 
@@ -63,7 +63,7 @@ class SettingController extends WebController
             if ($setting->validate()) {
                 $setting->save();
             }else{
-                Yii::$app->session->setFlash('error', Module::t('There are an error. Settings not saved.'));
+                Yii::$app->session->addFlash('error', Module::t('There are an error. Settings not saved.'));
                 return $this->redirect('index');
             }
         }

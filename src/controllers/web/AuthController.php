@@ -104,10 +104,10 @@ class AuthController extends WebController
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', Module::t('Check your email for further instructions.'));
+                Yii::$app->session->addFlash('success', Module::t('Check your email for further instructions.'));
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
+                Yii::$app->session->addFlash('error', Module::t('Sorry, we are unable to reset password for the provided email address.'));
             }
         }
 
@@ -125,7 +125,7 @@ class AuthController extends WebController
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', Module::t('New password saved.'));
+            Yii::$app->session->addFlash('success', Module::t('New password saved.'));
 
             return $this->goHome();
         }

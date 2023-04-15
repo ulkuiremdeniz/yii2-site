@@ -3,8 +3,9 @@
 namespace portalium\site\widgets;
 
 use Yii;
-use portalium\base\Widget;
+
 use portalium\bootstrap5\Alert;
+use portalium\bootstrap5\Widget;
 
 class FlashMessage extends Widget
 {
@@ -33,6 +34,8 @@ class FlashMessage extends Widget
 
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
+        Yii::warning($flashes);
+        Yii::warning(Yii::$app->request->isPjax);
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
         foreach ($flashes as $type => $data) {
