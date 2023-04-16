@@ -27,15 +27,25 @@ class FlashMessage extends Widget
      */
     public $closeButton = [];
 
+    public $autoDismiss = true;
+
+    public $dissmisDuration = 5000;
 
     public function init()
     {
         parent::init();
 
+        if ($this->autoDismiss) {
+            $this->view->registerJs('
+                setTimeout(function() {
+                    $(".alert").alert("close");
+                }, ' . $this->dissmisDuration . ');
+            ');
+        }
+
+
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
-        Yii::warning($flashes);
-        Yii::warning(Yii::$app->request->isPjax);
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
         foreach ($flashes as $type => $data) {
