@@ -52,9 +52,9 @@ class HomeController extends WebController
             $model = new ContactForm();
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ($model->sendEmail(Setting::findOne(['name' => 'email::address'])->value)) {
-                    Yii::$app->session->setFlash('success', Module::t('Thank you for contacting us. We will respond to you as soon as possible.'));
+                    Yii::$app->session->addFlash('success', Module::t('Thank you for contacting us. We will respond to you as soon as possible.'));
                 } else {
-                    Yii::$app->session->setFlash('error', Module::t('There was an error sending your message.'));
+                    Yii::$app->session->addFlash('error', Module::t('There was an error sending your message.'));
                 }
 
                 return $this->refresh();

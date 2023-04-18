@@ -3,8 +3,9 @@
 namespace portalium\site\widgets;
 
 use Yii;
-use portalium\base\Widget;
+
 use portalium\bootstrap5\Alert;
+use portalium\bootstrap5\Widget;
 
 class FlashMessage extends Widget
 {
@@ -26,10 +27,22 @@ class FlashMessage extends Widget
      */
     public $closeButton = [];
 
+    public $autoDismiss = true;
+
+    public $dissmisDuration = 5000;
 
     public function init()
     {
         parent::init();
+
+        if ($this->autoDismiss) {
+            $this->view->registerJs('
+                setTimeout(function() {
+                    $(".alert").alert("close");
+                }, ' . $this->dissmisDuration . ');
+            ');
+        }
+
 
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
