@@ -52,6 +52,13 @@ class ActiveForm
 
         if(in_array($model->type, [Form::TYPE_WIDGET])){
             $data = self::getConfigData($model);
+            $id = $model->id;
+            try {
+                $data['options']['settingIndex'] = $id;
+                $form->field($model, "[$index]value")->$method($data['class'], $data['options']);
+            } catch (\Throwable $th) {
+                unset($data['options']['settingIndex']);
+            }
             return $form->field($model, "[$index]value")->$method($data['class'], $data['options'])->label($label);
         }
         

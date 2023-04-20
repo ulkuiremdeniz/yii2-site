@@ -41,7 +41,7 @@ class SettingValue extends Model
             [['value'], 'string', 'max' => 200, 'on' => self::SCENARIO_RADIOLIST],
             [['value'], 'each', 'rule' => ['string', 'max' => 200], 'on' => self::SCENARIO_LISTBOX],
             [['value'], 'string', 'max' => 200, 'on' => self::SCENARIO_DROPDOWNLIST],
-            [['value'], 'string', 'on' => self::SCENARIO_WIDGET],
+            [['value'], 'safe', 'on' => self::SCENARIO_WIDGET],
         ];
     }
 
