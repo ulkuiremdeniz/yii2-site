@@ -47,7 +47,7 @@ class LoginButton extends Widget
                         $label = Module::t($text);
                         break;
                     default:
-                        $label = $this->icon . Module::t($text) . $param;
+                        $label = Module::t($text) . $param;
                         break;
                 }
             }else{
