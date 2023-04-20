@@ -64,7 +64,7 @@ class Language extends Widget
                         $label = Module::t($text);
                         break;
                     default:
-                        $label = $this->icon . Module::t($text);
+                        $label = Module::t($text);
                         break;
                 }
             }else{
