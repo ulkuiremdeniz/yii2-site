@@ -36,7 +36,7 @@ class Setting extends Component
         return ($this->isJson($value,true)) ? json_decode($value, true): $value;
     }
 
-    private function findSetting($name)
+    private static function findSetting($name)
     {
         if (($setting = Settings::findOne(['name' => $name])) !== null) {
             return $setting;
