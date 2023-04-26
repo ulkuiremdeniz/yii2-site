@@ -97,7 +97,9 @@ class ActiveForm
             $class = $items['method']['class'];
 
             $method = $items['method']['name'];
-            $model->config = Json::encode(ArrayHelper::map( $class::$method(),
+            $params = isset($items['method']['params']) ? $items['method']['params'] : [];
+
+            $model->config = Json::encode(ArrayHelper::map( $class::$method($params),
                 $items['method']['map']['key'],
                 $items['method']['map']['value']
             ),true);
