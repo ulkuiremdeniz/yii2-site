@@ -62,6 +62,7 @@ class m010101_010101_site_setting extends Migration
             'name' => 'auth::layout',
             'label' => 'Auth Layout',
             'type' => Form::TYPE_DROPDOWNLIST,
+            'value' => 'login',
             'config' => json_encode([
                 'method' => [
                     'class' => 'portalium\theme\Module',
