@@ -1,6 +1,5 @@
 <?php
 
-use Yii;
 use yii\db\Migration;
 use portalium\site\Module;
 use yii\helpers\ArrayHelper;
