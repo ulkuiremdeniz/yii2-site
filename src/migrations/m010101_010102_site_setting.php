@@ -17,7 +17,7 @@ class m010101_010102_site_setting extends Migration
 
         $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
-            'name' => 'default::role',
+            'name' => 'site::admin_role',
             'label' => 'Default Admin Role',
             'value' => 'admin',
             'type' => Form::TYPE_DROPDOWNLIST,
@@ -37,9 +37,9 @@ class m010101_010102_site_setting extends Migration
 
         $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
-            'name' => 'admin::user_role',
+            'name' => 'site::user_role',
             'label' => 'Default User Role',
-            'value' => '0',
+            'value' => 'user',
             'type' => Form::TYPE_DROPDOWNLIST,
             'config' => json_encode([
                 'model' => [
