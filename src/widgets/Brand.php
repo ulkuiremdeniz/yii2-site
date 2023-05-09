@@ -23,9 +23,9 @@ class Brand extends Widget
         $img = Yii::$app->setting->getValue('app::logo');
         $brand =  ($this->title) ? Html::encode(Yii::$app->setting->getValue('app::title')):"";
         if($this->auto && isset($img['name'])){
-            $brand = Html::img(Yii::$app->request->baseUrl.'/data/'.strval($img['name']), $this->options);
+            $brand = Html::img(Yii::$app->request->baseUrl.'/'. Yii::$app->setting->getValue('storage::path') .'/'.strval($img['name']), $this->options);
         }else{
-            $brand = (isset($img['name']) && $this->logo) ? Html::img(Yii::$app->request->baseUrl.'/data/'.strval($img['name']), $this->options):"";
+            $brand = (isset($img['name']) && $this->logo) ? Html::img(Yii::$app->request->baseUrl.'/'. Yii::$app->setting->getValue('storage::path') .'/'.strval($img['name']), $this->options):"";
             $brand .=  ($this->title) ? Html::encode(Yii::$app->setting->getValue('app::title')):"";
         }
         return $brand;
