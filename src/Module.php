@@ -3,8 +3,10 @@
 namespace portalium\site;
 
 use Yii;
+use portalium\base\Event;
 use portalium\user\Module as UserModule;
 use portalium\site\components\TaskAutomation;
+use portalium\site\components\TriggerActions;
 
 class Module extends \portalium\base\Module
 {
@@ -78,6 +80,11 @@ class Module extends \portalium\base\Module
         ]);
 
         return parent::coreT($category, $message, $params);
+    }
+
+    public function registerEvents()
+    {
+        Event::on($this::className(), UserModule::EVENT_USER_CREATE, [new TriggerActions(), 'onUserCreateBefore']);
     }
 
 }

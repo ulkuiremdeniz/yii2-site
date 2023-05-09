@@ -68,6 +68,7 @@ class SettingController extends WebController
             }
         }
         
+        Yii::$app->session->addFlash('success', Module::t('Settings saved'));
 
         return $this->redirect('index');
     }
