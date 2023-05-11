@@ -20,7 +20,7 @@ class Brand extends Widget
 
     public function run()
     {
-        $img = Yii::$app->setting->getValue('app::logo');
+        $img = Yii::$app->setting->getValue('app::logo_wide');
         $brand =  ($this->title) ? Html::encode(Yii::$app->setting->getValue('app::title')):"";
         if($this->auto && isset($img['name'])){
             $brand = Html::img(Yii::$app->request->baseUrl.'/'. Yii::$app->setting->getValue('storage::path') .'/'.strval($img['name']), $this->options);
