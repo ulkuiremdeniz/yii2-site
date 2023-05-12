@@ -77,21 +77,6 @@ class m010101_010101_site_setting extends Migration
 
         $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
-            'name' => 'app::logo',
-            'label' => 'Application Logo',
-            'value' => '0',
-            'type' => Form::TYPE_WIDGET,
-            'config' => json_encode([
-                'widget' => '\portalium\storage\widgets\FilePicker',
-                'options' => [
-                    'multiple' => 0,
-                    'returnAttribute' => ['name']
-                ]
-            ])
-        ]);
-
-        $this->insert(Module::$tablePrefix . 'setting', [
-            'module' => 'site',
             'name' => 'app::logo_wide',
             'label' => 'Application Logo Wide',
             'value' => '0',
@@ -100,7 +85,8 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'returnAttribute' => ['name']
+                    'returnAttribute' => ['name'],
+                    'name' => 'app::logo_wide'
                 ]
             ])
         ]);
@@ -115,7 +101,8 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'returnAttribute' => ['name']
+                    'returnAttribute' => ['name'],
+                    'name' => 'app::logo_square'
                 ]
             ])
         ]);
