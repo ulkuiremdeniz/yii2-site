@@ -104,7 +104,7 @@ return [
     'Default Role' => 'Varsayılan Rol',
     'Default User Role' => 'Varsayılan Kullanıcı Rolü',
     'Application Logo' => 'Uygulama Logosu',
-
+    'Settings saved' => 'Ayarlar kaydedildi',
 
     
 ];
