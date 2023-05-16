@@ -1,21 +1,21 @@
 {
-	"name" : "portalium/portalium-site",
-	"description" : "Portalium Site Module",
+	"name" : "portalium/yii2-site",
+	"description" : "Site Module for Portalium (Yii2)",
 	"type" : "portalium-core",
 	"license": "MIT",
 	"homepage" : "https://portalium.dev",
 	"authors" : [
 		{
 			"name" : "Uğur YILDIZ",
-			"email" : "yildiz@diginova.com.tr",
+			"email" : "ugur.yildiz@diginova.com.tr",
 			"homepage" : "https://uguryildiz.net"
 		}
 	],
 	"support" : {
-		"issues" : "https://github.com/portalium/portalium-site/issues"
+		"issues" : "https://github.com/portalium/yii2-site/issues"
 	},
 	"require": {
-		"portalium/portalium-bootstrap5": "*"
+		"portalium/yii2-bootstrap5": "*"
 	},
 	"autoload" : {
 		"psr-4" : {
