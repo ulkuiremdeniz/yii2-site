@@ -4,6 +4,7 @@ namespace portalium\site\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use portalium\base\Event;
 use portalium\site\Module;
 use portalium\site\models\Form;
 use portalium\site\models\SettingValue;
@@ -24,6 +25,20 @@ class Setting extends ActiveRecord
             ['type', 'in', 'range' => Form::getTypes()],
             ['value', 'safe'],
         ];
+    }
+
+    public function init()
+    {
+        $this->on(self::EVENT_AFTER_UPDATE, function($event) {
+
+            if($event->changedAttributes && Yii::$app->getModule($event->data['module']))
+            {
+                Event::trigger(Yii::$app->getModule($event->data['module']), Module::EVENT_SETTING_UPDATE, new Event(['payload' => [
+                    'data' => $event->data,
+                    'changedAttributes' => $event->changedAttributes
+                ]]));
+            }
+        }, $this);
     }
 
     public function attributeLabels()

@@ -3,13 +3,17 @@
 namespace portalium\site;
 
 use Yii;
+use portalium\base\Event;
 use portalium\user\Module as UserModule;
 use portalium\site\components\TaskAutomation;
+use portalium\site\components\TriggerActions;
 
 class Module extends \portalium\base\Module
 {
     const EVENT_ON_LOGIN = 'siteAfterLogin';
     const EVENT_ON_SIGNUP = 'siteAfterSignup';
+
+    const EVENT_SETTING_UPDATE = 'siteSettingUpdate';
 
     public static $description = 'Site Management Module';
     public static $name = 'Site';
@@ -78,6 +82,11 @@ class Module extends \portalium\base\Module
         ]);
 
         return parent::coreT($category, $message, $params);
+    }
+
+    public function registerEvents()
+    {
+        Event::on($this::className(), UserModule::EVENT_USER_CREATE, [new TriggerActions(), 'onUserCreateBefore']);
     }
 
 }

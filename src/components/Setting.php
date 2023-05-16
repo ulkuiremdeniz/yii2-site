@@ -42,7 +42,7 @@ class Setting extends Component
             return $setting;
         }
 
-        throw new NotFoundHttpException(Module::t('The requested setting does not exist.'));
+        throw new NotFoundHttpException(Module::t('The requested '.$name.' setting does not exist.'));
     }
 
     function isJson($value) {
