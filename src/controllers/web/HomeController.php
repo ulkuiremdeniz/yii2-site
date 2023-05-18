@@ -14,6 +14,14 @@ use portalium\content\models\Category;
 
 class HomeController extends WebController
 {
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        $behaviors['access']['except'] = ['index'];
+        return $behaviors;
+    }
+
     public function actionIndex()
     {
         $content = "";
