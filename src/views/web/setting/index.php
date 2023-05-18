@@ -55,7 +55,6 @@ $js = <<<JS
     $('#setting-tabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
-        console.log($(this).attr('href'));
         $('#setting-update').attr('action', $('#setting-update').attr('action').replace(/#.*$/, ''));
         $('#setting-update').attr('action', $('#setting-update').attr('action') + $(this).attr('href'));
     });
