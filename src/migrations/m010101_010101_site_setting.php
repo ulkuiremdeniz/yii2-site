@@ -85,8 +85,9 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'returnAttribute' => ['name'],
-                    'name' => 'app::logo_wide'
+                    'attributes' => ['name'],
+                    'name' => 'app::logo_wide',
+                    'isPicker' => true
                 ]
             ])
         ]);
@@ -101,8 +102,9 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'returnAttribute' => ['name'],
-                    'name' => 'app::logo_square'
+                    'attributes' => ['name'],
+                    'name' => 'app::logo_square',
+                    'isPicker' => true
                 ]
             ])
         ]);
