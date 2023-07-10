@@ -53,6 +53,7 @@ class SignupForm extends Model
             return null;
         }
 
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -61,6 +62,8 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
+        return $user->save() && $this->sendEmail($user);
 
         if ($user->save()) {
             \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
@@ -68,5 +71,19 @@ class SignupForm extends Model
         }
 
         return null;
+    }
+
+    protected function sendEmail($user)
+    {
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($this->email)
+            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->send();
     }
 }

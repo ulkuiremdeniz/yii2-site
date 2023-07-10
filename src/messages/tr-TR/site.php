@@ -106,6 +106,10 @@ return [
     'Application Logo' => 'Uygulama Logosu',
     'Settings saved' => 'Ayarlar kaydedildi',
 
+    /* VerifyEmail */
+
+    'Verify email token cannot be blank.'=>'Doğrulama e-posta belirteci boş olamaz.',
+    'Wrong verify email token.'=>'Yanlış doğrulama e-posta belirteci.'
     
 ];
 
