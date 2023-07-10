@@ -49,8 +49,17 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $user = $this->getUser();
+         //if the user is active
+        if($user->status===10)
+        {
             \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
             return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+        }
+        else{
+            Yii::$app->session->setFlash('error', 'Your account is not active. Please contact the administrator.');
+            return false;
+        }
+
         } else {
             return false;
         }

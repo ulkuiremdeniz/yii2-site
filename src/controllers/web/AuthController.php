@@ -13,6 +13,7 @@ use portalium\site\models\SignupForm;
 use portalium\site\models\ResetPasswordForm;
 use portalium\web\Controller as WebController;
 use portalium\site\models\PasswordResetRequestForm;
+use portalium\site\models\VerifyEmailForm;
 
 class AuthController extends WebController
 {
@@ -73,6 +74,39 @@ class AuthController extends WebController
             ]);
         }
     }
+
+    public function actionVerifyEmail($token)
+    {
+        try {
+            $model = new VerifyEmailForm($token);
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
+            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+            return $this->goHome();
+        }
+
+        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
+        return $this->goHome();
+    }
+
+    public function actionResendVerificationEmail()
+    {
+        $model = new ResendVerificationEmailForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                return $this->goHome();
+            }
+            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+        }
+
+        return $this->render('resendVerificationEmail', [
+            'model' => $model
+        ]);
+    }
+
 
     public function actionLogout()
     {
