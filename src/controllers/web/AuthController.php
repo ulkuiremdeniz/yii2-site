@@ -77,12 +77,15 @@ class AuthController extends WebController
 
     public function actionVerifyEmail($token)
     {
-        try {
+        //doğrulama işlemi sırasında hata ile karşılaşılırsa
+      /*  try {
             $model = new VerifyEmailForm($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
+      */
+        //eğer doğrulama işlemi başarılıysa
+        if (/*&&Yii::$app->user->login($user) */ ($user = $model->verifyEmail()) ) {
             Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
             return $this->goHome();
         }

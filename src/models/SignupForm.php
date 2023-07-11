@@ -6,7 +6,7 @@ use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
 use portalium\user\models\User;
-
+use Yii;
 class SignupForm extends Model
 {
     public $username;
@@ -75,13 +75,14 @@ class SignupForm extends Model
 
     protected function sendEmail($user)
     {
+        Yii::$app->mailer->setViewPath(Yii::getAlias('@portalium/site/mail'));
         return Yii::$app
             ->mailer
             ->compose(
                 ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Setting::findOne(['name' => 'email::address'])->value => Setting::findOne(['name' => 'email::displayname'])->value])
             ->setTo($this->email)
             ->setSubject('Account registration at ' . Yii::$app->name)
             ->send();
