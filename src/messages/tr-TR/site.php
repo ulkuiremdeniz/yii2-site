@@ -82,7 +82,7 @@ return [
     'Signup denied with API' => 'API ile kayıt reddedildi.',
     'Login denied with API' => 'API ile giriş reddedildi.',
     'No content' => 'İçerik yok',
-    'Your account is not active. Please contact the administrator.'=>'Hesabınız aktif değil. Lütfen yöneticiyle iletişime geçin.',
+    'Your account is not active. Please contact the administrator or activate your account..'=>'Hesabınız aktif değil. Lütfen yöneticiyle iletişime geçin veya hesabınızı etkinleştirin.',
 
 
     'Thank you for contacting us. We will respond to you as soon as possible.' => 'Bizimle iletişime geçtiğiniz için teşekkürler. Size en kısa sürede cevap vereceğiz.',
