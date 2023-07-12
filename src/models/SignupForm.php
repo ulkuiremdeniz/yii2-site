@@ -63,9 +63,12 @@ class SignupForm extends Model
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
 
-        if ($user->save()) {
+        ;
+
+        //this block of code commented because lack of some lines of code in user module
+        if ($user->save()/*&&$this->sendEmail($user)*/) {
+
             \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
             return $user;
         }

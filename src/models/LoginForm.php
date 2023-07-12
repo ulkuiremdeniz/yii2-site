@@ -56,7 +56,8 @@ class LoginForm extends Model
             return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         else{
-            Yii::$app->session->setFlash('error', 'Your account is not active. Please contact the administrator or activate your account.');
+            $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
+            Yii::$app->session->setFlash('error', 'Your account is not active. Please contact the administrator or activate your account. '.$verifyLink);
             return false;
         }
 

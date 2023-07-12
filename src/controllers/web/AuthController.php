@@ -24,7 +24,7 @@ class AuthController extends WebController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login', 'logout', 'signup', 'request-password-reset', 'reset-password'],
+                'only' => ['login', 'logout', 'signup', 'request-password-reset', 'reset-password', 'verify-email'],
                 'rules' => [
                     [
                         'allow' => true,
@@ -78,14 +78,16 @@ class AuthController extends WebController
     public function actionVerifyEmail($token)
     {
         //doğrulama işlemi sırasında hata ile karşılaşılırsa
-      /*  try {
+        try {
             $model = new VerifyEmailForm($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-      */
+
         //eğer doğrulama işlemi başarılıysa
-        if (/*&&Yii::$app->user->login($user) */ ($user = $model->verifyEmail()) ) {
+        if (($user = $model->verifyEmail()) &&Yii::$app->user->login($user)
+            ) {
+
             Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
             return $this->goHome();
         }
