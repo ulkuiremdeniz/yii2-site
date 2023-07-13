@@ -4,6 +4,7 @@ use portalium\site\bundles\AppAsset;
 use yii\helpers\Html;
 use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
+use portalium\site\models\LoginForm;
 
 $this->title = Module::t('Login');
 AppAsset::register($this);
@@ -31,12 +32,12 @@ AppAsset::register($this);
                 
                 <?= $form->field($model, 'username', ['options'=>['class' => 'form-attribute mb-3 row']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Username')]) ?>
                 <?= '<div class = "clearfix" style = "margin-top:2px;"></div>' .$form->field($model, 'password', ['options'=>['class' => 'form-attribute mb-3 row']])->passwordInput(['class' => 'form-control form-control-lg', 'placeholder' => Module::t('Password')]) ?>
-                
+
                 <div class="row form-attribute">
                     <div class="col-6" style="padding-right:0px">
-                    <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
+                        <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
                     </div>
-                    
+
                     <div class="col-6" style="padding-right:0px; margin-left:-13px;">
                     <?= 
                         $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px; float:right;']])->checkbox([
@@ -46,13 +47,30 @@ AppAsset::register($this);
                 </div>
                 <div class="d-grid mb-3 form-attribute">
                     <?= '<div class = "clearfix"></div>' .Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?php
+
+                      if(Yii::$app->session->get("login_status")==LoginForm::LOGIN_STATUS_PASSIVE)
+                      {
+                          Yii::$app->session->set("login_status",LoginForm::LOGIN_STATUS_ACTIVE);
+                          echo ' <div class="row form-attribute">';
+                          echo ' <div class="col-6" style="padding-right:0px">';
+                          echo   Html::a(Module::t('Denemee!'), ['/site/auth/resend-verification-email'], ['style' => 'margin-left: -10px']);
+                          echo '</div>';
+                          echo ' <div class="col-6" style="padding-right:0px; margin-left:-13px;">';
+                          echo '</div>';
+
+                      }
+
+                      ?>
                 </div>
+
                 <?php if (Yii::$app->setting->getValue('form::signup')): ?>
                     <div class="d-grid mb-3 form-attribute">
                         <?= '<div class = "clearfix"></div>' .Html::a(Module::t('Signup'), ['/site/auth/signup'], ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
                     </div>
                 <?php endif; ?>
                 <?php ActiveForm::end(); ?>
+            </div>
             </div>
         </div>
     </div>

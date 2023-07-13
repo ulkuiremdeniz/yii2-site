@@ -34,6 +34,7 @@ return [
     'Verify Code' => 'Doğrulama Kodu',
     'Please fill out the following fields to signup:' => 'Kayıt olmak için lütfen aşağıdaki alanları doldurun:',
     'Save' => 'Kaydet',
+    'Your registration has been successfully completed. Confirm the confirmation e-mail sent to your e-mail.'=>'Kaydınız başarıyla tamamlandı. E-postanıza gönderilen onay e-postasını onaylayın.',
     /* Reset */
     'Password reset token cannot be blank.' => 'Şifre sıfırlama alanı boş olamaz.',
     'Please fill out your email. A link to reset password will be sent there.' => 'Lütfen e-posta adresinizi girin. Şifreyi sıfırlamak için bir link gönderilecektir.',
@@ -82,7 +83,7 @@ return [
     'Signup denied with API' => 'API ile kayıt reddedildi.',
     'Login denied with API' => 'API ile giriş reddedildi.',
     'No content' => 'İçerik yok',
-    'Your account is not active. Please contact the administrator or activate your account..'=>'Hesabınız aktif değil. Lütfen yöneticiyle iletişime geçin veya hesabınızı etkinleştirin.',
+    'Your account is not active. Please activate your account.'=>'Hesabınız aktif değil. Lütfen hesabınızı aktif edin.',
 
 
     'Thank you for contacting us. We will respond to you as soon as possible.' => 'Bizimle iletişime geçtiğiniz için teşekkürler. Size en kısa sürede cevap vereceğiz.',

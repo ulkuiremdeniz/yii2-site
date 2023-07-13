@@ -2,6 +2,7 @@
 
 namespace portalium\site\controllers\web;
 
+use portalium\site\models\ResendVerificationEmailForm;
 use Yii;
 use portalium\site\Module;
 use yii\filters\AccessControl;
@@ -85,10 +86,9 @@ class AuthController extends WebController
         }
 
         //eğer doğrulama işlemi başarılıysa
-        if (($user = $model->verifyEmail()) &&Yii::$app->user->login($user)
-            ) {
+        if (($user = $model->verifyEmail()) &&Yii::$app->user->login($user)) {
 
-            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+            Yii::$app->session->setFlash('error', 'denemeeeeeeeeee ');
             return $this->goHome();
         }
 
@@ -98,7 +98,7 @@ class AuthController extends WebController
 
     public function actionResendVerificationEmail()
     {
-        $model = new ResendVerificationEmailForm();
+        $model=new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');

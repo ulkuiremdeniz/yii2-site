@@ -69,6 +69,7 @@ class SignupForm extends Model
         //this block of code commented because lack of some lines of code in user module
         if ($user->save()/*&&$this->sendEmail($user)*/) {
 
+            Yii::$app->session->setFlash('success', 'Your registration has been successfully completed. Confirm the confirmation e-mail sent to your e-mail.');
             \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
             return $user;
         }
