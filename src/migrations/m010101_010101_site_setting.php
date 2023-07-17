@@ -85,9 +85,9 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'attributes' => ['name'],
+                    'returnAttribute' => ['name'],
                     'name' => 'app::logo_wide',
-                    'isPicker' => true
+
                 ]
             ])
         ]);
@@ -102,9 +102,9 @@ class m010101_010101_site_setting extends Migration
                 'widget' => '\portalium\storage\widgets\FilePicker',
                 'options' => [
                     'multiple' => 0,
-                    'attributes' => ['name'],
+                    'returnAttribute' => ['name'],
                     'name' => 'app::logo_square',
-                    'isPicker' => true
+
                 ]
             ])
         ]);
@@ -152,6 +152,16 @@ class m010101_010101_site_setting extends Migration
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Allow', 0 => 'Deny'])
+        ]);
+
+
+        $this->insert(Module::$tablePrefix . 'setting', [
+            'module' => 'site',
+            'name' => 'site::verifyEmail',
+            'label' => 'Email Confirmation',
+            'value' => '1',
+            'type' => Form::TYPE_RADIOLIST,
+            'config' => json_encode([ 1 => 'Active', 0 => 'Passive'])
         ]);
 
         $this->insert(Module::$tablePrefix . 'setting', [

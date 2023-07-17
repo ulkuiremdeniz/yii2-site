@@ -14,9 +14,10 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
-    const LOGIN_STATUS_PASSIVE=0;
+    /*const LOGIN_STATUS_PASSIVE=0;
     const LOGIN_STATUS_ACTIVE=1;
     const LOGIN_STATUS_ERROR=2;
+    */
 
     private $_user;
 
@@ -52,22 +53,39 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $user = $this->getUser();
-         //if the user is active
-        if($user->status===10)
-        {
-            Yii::$app->session->set("login_status",self::LOGIN_STATUS_ACTIVE);
-            \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
-            return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
-        }
-        else{
-            $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
-            Yii::$app->session->setFlash('error', 'Your account is not active. Please activate your account. '.$verifyLink);
-            Yii::$app->session->set("login_status",self::LOGIN_STATUS_PASSIVE);
-            return false;
-        }
+
+            //ayarlarda e-posta doğrulama bölümü açık
+
+            if (Yii::$app->setting->getValue('site::verifyEmail'))
+            {
+
+                //kullanıcı aktifse direkt giriş yap
+                if($user->status===10)
+                {
+                    // Yii::$app->session->set("login_status",self::LOGIN_STATUS_ACTIVE);
+                    \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
+                    return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                }
+
+                //kullanıcı aktif değilse flash mesaj ve doğrulama e-postası yolla
+                else{
+                    $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
+                    Yii::$app->session->setFlash('error', 'Your account is not active. Please activate your account. '.$verifyLink);
+                    // Yii::$app->session->set("login_status",self::LOGIN_STATUS_PASSIVE);
+                    return false;
+                }
+            }
+
+            //ayarlarda e-posta doğrulama bölümü kapalı
+            else
+            {
+
+                \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
+                return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
 
         } else {
-            Yii::$app->session->set("login_status",self::LOGIN_STATUS_ERROR);
+          //  Yii::$app->session->set("login_status",self::LOGIN_STATUS_ERROR);
             return false;
         }
     }
