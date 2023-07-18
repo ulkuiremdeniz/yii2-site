@@ -5,6 +5,8 @@ use yii\helpers\Html;
 use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
 use portalium\site\models\LoginForm;
+use portalium\user\models\User;
+
 
 $this->title = Module::t('Login');
 AppAsset::register($this);
@@ -39,29 +41,34 @@ AppAsset::register($this);
                     </div>
 
                     <div class="col-6" style="padding-right:0px; margin-left:-13px;">
-                    <?= 
+                        <?=
                         $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px; float:right;']])->checkbox([
-                            'template' => "<div style='padding-right:0px; '>\n{input} {label}\n</div>",
+                            'template' => "<div style='padding-left:0px;padding-top:-15px; '>\n{input} {label}\n</div>",
                         ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
                     </div>
+
+                    <?php
+
+                    // ayarlarda e-posta doğrulama bölümü açıksa ve kullanıcı pasifse
+                    if((Yii::$app->setting->getValue('site::verifyEmail')) &&(Yii::$app->session->get("login_status")==false ))
+                    {
+                        echo ' <div class="row form-attribute">';
+                        echo ' <div class="col-6" style="margin-left: -23px;">';
+                        echo   Html::a(Module::t('Email Verification'), ['/site/auth/resend-verification-email'], ['style' => 'margin-left: -10px']);
+                        echo '</div>';
+                        echo ' <div class="col-6" style="">';
+                        echo '</div>';
+                        Yii::$app->session->set("login_status",true);
+                    }
+
+                    ?>
+
+
+
                 </div>
                 <div class="d-grid mb-3 form-attribute">
                     <?= '<div class = "clearfix"></div>' .Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                    <?php
 
-                      if(Yii::$app->session->get("login_status")==LoginForm::LOGIN_STATUS_PASSIVE)
-                      {
-                          Yii::$app->session->set("login_status",LoginForm::LOGIN_STATUS_ACTIVE);
-                          echo ' <div class="row form-attribute">';
-                          echo ' <div class="col-6" style="padding-right:0px">';
-                          echo   Html::a(Module::t('Denemee!'), ['/site/auth/resend-verification-email'], ['style' => 'margin-left: -10px']);
-                          echo '</div>';
-                          echo ' <div class="col-6" style="padding-right:0px; margin-left:-13px;">';
-                          echo '</div>';
-
-                      }
-
-                      ?>
                 </div>
 
                 <?php if (Yii::$app->setting->getValue('form::signup')): ?>
@@ -74,6 +81,4 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-</div>
-
 </div>
