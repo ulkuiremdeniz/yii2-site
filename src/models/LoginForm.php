@@ -54,7 +54,7 @@ class LoginForm extends Model
             if (Yii::$app->setting->getValue('site::verifyEmail'))
             {
                 //kullanıcı aktifse direkt giriş yap
-                if($user->status===10)
+                if($user->status===User::STATUS_ACTIVE)
                 {
                     Yii::$app->session->set("login_status",true );
                     \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
@@ -65,7 +65,8 @@ class LoginForm extends Model
                 else{
                     Yii::$app->session->set("login_status",false );
                     $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
-                    Yii::$app->session->setFlash('error', 'Your account is not active. Please activate your account. '.$verifyLink);
+                    $emailVerificationLink=Yii::$app->urlManager->createAbsoluteUrl(['/site/auth/resend-verification-email']);
+                    Yii::$app->session->addFlash('error', 'Your account is not active. Please activate your account.<a href="' . $emailVerificationLink.'"> '/*.$verifyLink*/."Click here!".'</a>');
                     return false;
                 }
             }

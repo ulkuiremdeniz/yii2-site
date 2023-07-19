@@ -47,24 +47,6 @@ AppAsset::register($this);
                         ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
                     </div>
 
-                    <?php
-
-                    // ayarlarda e-posta doğrulama bölümü açıksa ve kullanıcı pasifse
-                    if((Yii::$app->setting->getValue('site::verifyEmail')) &&(Yii::$app->session->get("login_status")==false ))
-                    {
-                        echo ' <div class="row form-attribute">';
-                        echo ' <div class="col-6" style="margin-left: -23px;">';
-                        echo   Html::a(Module::t('Email Verification'), ['/site/auth/resend-verification-email'], ['style' => 'margin-left: -10px']);
-                        echo '</div>';
-                        echo ' <div class="col-6" style="">';
-                        echo '</div>';
-                        Yii::$app->session->set("login_status",true);
-                    }
-
-                    ?>
-
-
-
                 </div>
                 <div class="d-grid mb-3 form-attribute">
                     <?= '<div class = "clearfix"></div>' .Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
