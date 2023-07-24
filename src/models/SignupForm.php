@@ -5,8 +5,9 @@ namespace portalium\site\models;
 use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
-use portalium\user\models\User;
 use Yii;
+use portalium\user\models\User;
+
 class SignupForm extends Model
 {
     public $username;
@@ -66,13 +67,18 @@ class SignupForm extends Model
 
         ;
 
-        //this block of code commented because lack of some lines of code in user module
-        if ($user->save() && Yii::$app->setting->getValue('site::verifyEmail')/*&&$this->sendEmail($user)*/) {
 
+
+        if ($user->save() && Yii::$app->setting->getValue('site::verifyEmail'))
+        {
             Yii::$app->session->setFlash('success', 'Your registration has been successfully completed. Confirm the confirmation e-mail sent to your e-mail.');
-            \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
-            return $user;
+            if($this->sendEmail($user))
+            {
+                \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
+                return $user;
+            }
         }
+
         else if($user->save() && !(Yii::$app->setting->getValue('site::verifyEmail')))
         {
             Yii::$app->session->setFlash('success', 'Your registration has been successfully completed.');
