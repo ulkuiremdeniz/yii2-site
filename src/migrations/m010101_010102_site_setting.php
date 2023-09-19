@@ -15,7 +15,7 @@ class m010101_010102_site_setting extends Migration
             'name'
         );
 
-        $this->insert(Module::$tablePrefix . 'setting', [
+        $this->insert('setting', [
             'module' => 'site',
             'name' => 'site::admin_role',
             'label' => 'Default Admin Role',
@@ -35,7 +35,7 @@ class m010101_010102_site_setting extends Migration
             ])
         ]);
 
-        $this->insert(Module::$tablePrefix . 'setting', [
+        $this->insert('setting', [
             'module' => 'site',
             'name' => 'site::user_role',
             'label' => 'Default User Role',
@@ -58,6 +58,6 @@ class m010101_010102_site_setting extends Migration
 
     public function down()
     {
-        $this->dropTable(Module::$tablePrefix . 'setting');
+        $this->dropTable('setting');
     }
 }

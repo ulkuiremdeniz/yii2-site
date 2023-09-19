@@ -13,7 +13,7 @@ class Setting extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{'. Module::$tablePrefix .'setting}}';
+        return '{{setting}}';
     }
 
     public function rules()
