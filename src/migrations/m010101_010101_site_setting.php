@@ -9,7 +9,7 @@ class m010101_010101_site_setting extends Migration
 {
     public function up()
     {
-        $this->createTable(Module::$tablePrefix . 'setting', [
+        $this->createTable('site_setting', [
             'id' => $this->primaryKey(),
             'module' => $this->string(64)->notNull(),
             'name' => $this->string(64)->notNull(),
@@ -18,7 +18,14 @@ class m010101_010101_site_setting extends Migration
             'type' => $this->tinyInteger(1)->notNull(),
             'config' => $this->text(),
         ]);
-
+        $this->insert(Module::$tablePrefix . 'setting', [
+            'module' => 'site',
+            'name' => 'site::actions_permissions',
+            'label' => 'Action Permissions',
+            'value' => '',
+            'type' => 4, //Form::TYPE_HIDDENINPUT,
+            'config' => ''
+        ]);
         $this->insert(Module::$tablePrefix . 'setting', [
             'module' => 'site',
             'name' => 'app::title',
@@ -87,7 +94,6 @@ class m010101_010101_site_setting extends Migration
                     'multiple' => 0,
                     'returnAttribute' => ['name'],
                     'name' => 'app::logo_wide',
-
                 ]
             ])
         ]);
@@ -104,7 +110,6 @@ class m010101_010101_site_setting extends Migration
                     'multiple' => 0,
                     'returnAttribute' => ['name'],
                     'name' => 'app::logo_square',
-
                 ]
             ])
         ]);

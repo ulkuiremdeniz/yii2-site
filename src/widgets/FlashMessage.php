@@ -34,7 +34,7 @@ class FlashMessage extends Widget
     public function init()
     {
         parent::init();
-        //Yii::$app->view->registerJs('$.pjax.defaults.timeout = 30000;');
+        Yii::$app->view->registerJs('$.pjax.defaults.timeout = 30000;');
         if ($this->autoDismiss) {
             $this->view->registerJs('
                 setTimeout(function() {
