@@ -6,8 +6,9 @@ use Yii;
 use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
-use portalium\user\models\User;
 use yii\validators\EmailValidator;
+use portalium\user\models\User;
+
 
 class LoginForm extends Model
 {
@@ -49,19 +50,14 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $user = $this->getUser();
-
-            //ayarlarda e-posta doğrulama bölümü açık
             if (Yii::$app->setting->getValue('site::verifyEmail'))
             {
-                //kullanıcı aktifse direkt giriş yap
                 if($user->status===User::STATUS_ACTIVE)
                 {
                     Yii::$app->session->set("login_status",true );
                     \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
                     return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
                 }
-
-                //kullanıcı aktif değilse flash mesaj ve doğrulama e-postası yolla
                 else{
                     Yii::$app->session->set("login_status",false );
                     $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
@@ -70,7 +66,6 @@ class LoginForm extends Model
                     return false;
                 }
             }
-            //ayarlarda e-posta doğrulama bölümü kapalı
             else
             {
                 \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));

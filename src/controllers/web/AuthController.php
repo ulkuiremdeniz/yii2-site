@@ -15,6 +15,7 @@ use portalium\site\models\ResetPasswordForm;
 use portalium\web\Controller as WebController;
 use portalium\site\models\PasswordResetRequestForm;
 use portalium\site\models\VerifyEmailForm;
+use portalium\user\models\User;
 
 class AuthController extends WebController
 {
@@ -78,17 +79,15 @@ class AuthController extends WebController
 
     public function actionVerifyEmail($token)
     {
-        //doğrulama işlemi sırasında hata ile karşılaşılırsa
         try {
             $model = new VerifyEmailForm($token);
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        //eğer doğrulama işlemi başarılıysa
+
         if (($user = $model->verifyEmail()) &&Yii::$app->user->login($user)) {
 
-            Yii::$app->session->setFlash('error', 'denemeeeeeeeeee ');
             return $this->goHome();
         }
 
