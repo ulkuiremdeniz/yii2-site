@@ -4,6 +4,9 @@ use portalium\site\bundles\AppAsset;
 use yii\helpers\Html;
 use portalium\theme\widgets\ActiveForm;
 use portalium\site\Module;
+use portalium\site\models\LoginForm;
+use portalium\user\models\User;
+
 
 $this->title = Module::t('Login');
 AppAsset::register($this);
@@ -31,22 +34,25 @@ AppAsset::register($this);
                 
                 <?= $form->field($model, 'username', ['options'=>['class' => 'form-attribute mb-3 row']])->textInput(['autofocus' => true, 'class' => 'form-control form-control-lg', 'placeholder' => Module::t('Username')]) ?>
                 <?= '<div class = "clearfix" style = "margin-top:2px;"></div>' .$form->field($model, 'password', ['options'=>['class' => 'form-attribute mb-3 row']])->passwordInput(['class' => 'form-control form-control-lg', 'placeholder' => Module::t('Password')]) ?>
-                
+
                 <div class="row form-attribute">
                     <div class="col-6" style="padding-right:0px">
-                    <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
+                        <?= Html::a(Module::t('Forgot Password!'), ['/site/auth/request-password-reset'], ['style' => 'margin-left: -10px']) ?>
                     </div>
-                    
+
                     <div class="col-6" style="padding-right:0px; margin-left:-13px;">
-                    <?= 
+                        <?=
                         $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:0px; float:right;']])->checkbox([
-                            'template' => "<div style='padding-right:0px; '>\n{input} {label}\n</div>",
+                            'template' => "<div style='padding-left:0px;padding-top:-15px; '>\n{input} {label}\n</div>",
                         ])->label(Module::t('Remember Me'),['style' => 'margin-top: 0px;']) ?>
                     </div>
+
                 </div>
                 <div class="d-grid mb-3 form-attribute">
                     <?= '<div class = "clearfix"></div>' .Html::submitButton(Module::t('Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+
                 </div>
+
                 <?php if (Yii::$app->setting->getValue('form::signup')): ?>
                     <div class="d-grid mb-3 form-attribute">
                         <?= '<div class = "clearfix"></div>' .Html::a(Module::t('Signup'), ['/site/auth/signup'], ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
@@ -54,8 +60,7 @@ AppAsset::register($this);
                 <?php endif; ?>
                 <?php ActiveForm::end(); ?>
             </div>
+            </div>
         </div>
     </div>
-</div>
-
 </div>

@@ -5,6 +5,7 @@ namespace portalium\site\models;
 use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
+use Yii;
 use portalium\user\models\User;
 
 class SignupForm extends Model
@@ -53,6 +54,7 @@ class SignupForm extends Model
             return null;
         }
 
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -61,12 +63,45 @@ class SignupForm extends Model
         $user->setPassword($this->password);
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->generateAuthKey();
+        $user->generateEmailVerificationToken();
 
-        if ($user->save()) {
+        ;
+
+
+
+        if ($user->save() && Yii::$app->setting->getValue('site::verifyEmail'))
+        {
+            Yii::$app->session->setFlash('success', 'Your registration has been successfully completed. Confirm the confirmation e-mail sent to your e-mail.');
+            if($this->sendEmail($user))
+            {
+                \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
+                return $user;
+            }
+        }
+
+        else if($user->save() && !(Yii::$app->setting->getValue('site::verifyEmail')))
+        {
+            Yii::$app->session->setFlash('success', 'Your registration has been successfully completed.');
             \Yii::$app->trigger(Module::EVENT_ON_SIGNUP, new Event(['payload' => $user]));
             return $user;
+
         }
 
         return null;
+    }
+
+    protected function sendEmail($user)
+    {
+        Yii::$app->mailer->setViewPath(Yii::getAlias('@portalium/site/mail'));
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Setting::findOne(['name' => 'email::address'])->value => Setting::findOne(['name' => 'email::displayname'])->value])
+            ->setTo($this->email)
+            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->send();
     }
 }

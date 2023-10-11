@@ -93,7 +93,7 @@ class m010101_010101_site_setting extends Migration
                 'options' => [
                     'multiple' => 0,
                     'returnAttribute' => ['name'],
-                    'name' => 'app::logo_wide'
+                    'name' => 'app::logo_wide',
                 ]
             ])
         ]);
@@ -109,7 +109,7 @@ class m010101_010101_site_setting extends Migration
                 'options' => [
                     'multiple' => 0,
                     'returnAttribute' => ['name'],
-                    'name' => 'app::logo_square'
+                    'name' => 'app::logo_square',
                 ]
             ])
         ]);
@@ -157,6 +157,16 @@ class m010101_010101_site_setting extends Migration
             'value' => '1',
             'type' => Form::TYPE_RADIOLIST,
             'config' => json_encode([ 1 => 'Allow', 0 => 'Deny'])
+        ]);
+
+
+        $this->insert(Module::$tablePrefix . 'setting', [
+            'module' => 'site',
+            'name' => 'site::verifyEmail',
+            'label' => 'Email Confirmation',
+            'value' => '1',
+            'type' => Form::TYPE_RADIOLIST,
+            'config' => json_encode([ 1 => 'Active', 0 => 'Passive'])
         ]);
 
         $this->insert(Module::$tablePrefix . 'setting', [
