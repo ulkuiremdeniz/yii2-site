@@ -16,6 +16,13 @@ class Setting extends Component
         return self::decode(self::findSetting($name)->config);
     }
 
+    public function setConfig($name, $value)
+    {
+        $setting = self::findSetting($name);
+        $setting->config = $value;
+        return $setting->save();
+    }
+
     public function getAll()
     {
         return ArrayHelper::map(Settings::find()->asArray()->all(),'name','value');
