@@ -50,7 +50,7 @@ class PasswordResetRequestForm extends Model
             }
         }
 
-        Yii::$app->mailer->setViewPAth(Yii::getAlias('@portalium/site/mail'));
+        Yii::$app->mailer->setViewPath(Yii::getAlias('@portalium/site/mail'));
 
         return Yii::$app
             ->mailer

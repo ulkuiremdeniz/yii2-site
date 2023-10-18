@@ -58,6 +58,6 @@ class m010101_010102_site_setting extends Migration
 
     public function down()
     {
-        $this->dropTable(Module::$tablePrefix . 'setting');
+        $this->dropTable('setting');
     }
 }

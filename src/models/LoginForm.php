@@ -6,15 +6,15 @@ use Yii;
 use portalium\base\Event;
 use yii\base\Model;
 use portalium\site\Module;
-use portalium\user\models\User;
 use yii\validators\EmailValidator;
+use portalium\user\models\User;
+
 
 class LoginForm extends Model
 {
     public $username;
     public $password;
     public $rememberMe = true;
-
     private $_user;
 
     public function rules()
@@ -47,10 +47,41 @@ class LoginForm extends Model
 
     public function login()
     {
+        //The user's login credentials are being verified.
         if ($this->validate()) {
+            //The user's information is being collected.
             $user = $this->getUser();
-            \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
-            return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            //If email confirmation is selected.
+            if (Yii::$app->setting->getValue('site::verifyEmail')) {
+                //Send the verification email.
+                Yii::$app->session->set("login_status", false);
+                $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
+                $emailVerificationLink = Yii::$app->urlManager->createAbsoluteUrl(['/site/auth/resend-verification-email']);
+                Yii::$app->session->addFlash('error', 'Your account is not active. Please activate your account.<a href="' . $emailVerificationLink . '"> '/*.$verifyLink*/ . "Click here!" . '</a>');
+                return false;
+            } //If disable is selected.
+            else {
+                //If "User Status" is selected as "Active" in SMTP.
+                if (Yii::$app->setting->getValue('site::userStatus')) {
+                    $user->status=User::STATUS_ACTIVE;
+                    $user->save(false) ? $user : null;
+                } else {
+                   $user->status=User::STATUS_PASSIVE;
+                    $user->save(false) ? $user : null;
+                }
+                //If the user status is active.
+                if ($user->status === User::STATUS_ACTIVE) {
+                    Yii::$app->session->set("login_status",true);
+                    \Yii::$app->trigger(Module::EVENT_ON_LOGIN, new Event(['payload' => $user]));
+                    return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                } else{
+                    Yii::$app->session->set("login_status",false);
+                    $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/auth/verify-email', 'token' => $user->verification_token]);
+                    $emailVerificationLink=Yii::$app->urlManager->createAbsoluteUrl(['/site/auth/resend-verification-email']);
+                    Yii::$app->session->addFlash('error', 'Your account is not active. Please activate your account.<a href="' . $emailVerificationLink . '"> '/*.$verifyLink*/ . "Click here!" . '</a>');
+                    return false;
+                }
+            }
         } else {
             return false;
         }
